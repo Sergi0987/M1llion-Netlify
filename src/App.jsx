@@ -27,46 +27,6 @@ const products = [
   },
 ];
 
-const instagramPosts = [
-  {
-    id: 1,
-    image: "https://picsum.photos/600/600?random=21",
-    alt: "Training session",
-    url: "https://www.instagram.com/YOUR_INSTAGRAM_HANDLE",
-  },
-  {
-    id: 2,
-    image: "https://picsum.photos/600/600?random=22",
-    alt: "Gym outfit",
-    url: "https://www.instagram.com/YOUR_INSTAGRAM_HANDLE",
-  },
-  {
-    id: 3,
-    image: "https://picsum.photos/600/600?random=23",
-    alt: "Client progress",
-    url: "https://www.instagram.com/YOUR_INSTAGRAM_HANDLE",
-  },
-  {
-    id: 4,
-    image: "https://picsum.photos/600/600?random=24",
-    alt: "Group class",
-    url: "https://www.instagram.com/YOUR_INSTAGRAM_HANDLE",
-  },
-  {
-    id: 5,
-    image: "https://picsum.photos/600/600?random=25",
-    alt: "Strength training",
-    url: "https://www.instagram.com/YOUR_INSTAGRAM_HANDLE",
-  },
-  {
-    id: 6,
-    image: "https://picsum.photos/600/600?random=26",
-    alt: "Post-workout",
-    url: "https://www.instagram.com/YOUR_INSTAGRAM_HANDLE",
-  },
-];
-
-
 
 export default function App() {
   const year = new Date().getFullYear();
@@ -95,7 +55,7 @@ export default function App() {
             <a href="#coaching" className="hover:opacity-70">Coaching</a>
             <a href="#shop" className="hover:opacity-70">Shop</a>
             <a href="#about" className="hover:opacity-70">About</a>
-            <a href="instagram" className="hover:opacity-70">Instagram</a>
+            <a href="#instagram" className="hover:opacity-70">Instagram</a>
             <a href="#contact" className="hover:opacity-70">Contact</a>
           </nav>
 
