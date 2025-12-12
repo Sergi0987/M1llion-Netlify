@@ -91,7 +91,7 @@ export default function App() {
 
         <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-slate-100">
           <img
-            src="../public/M1llionLogo.png"
+            src="/M1llionLogo.png"
             alt="Hero placeholder"
             className="w-full h-full object-cover"
           />
