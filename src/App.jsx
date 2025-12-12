@@ -126,7 +126,7 @@ export default function App() {
               </div>
 
               <a
-                href="https://your-kahunas-link.example"
+                href="https://kahunas.io/coach/packages/list/a13e6be5-d737-47e0-b37e-8e8efbcf2c4c"
                 target="_blank"
                 rel="noreferrer"
                 className="mt-6 inline-block px-5 py-3 rounded-xl bg-black text-white text-sm text-center hover:bg-gray-900"
