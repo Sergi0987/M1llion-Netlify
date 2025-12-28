@@ -57,7 +57,7 @@ export default function App() {
             <a href="#about" className="hover:opacity-70">About</a>
             <a href="#instagram" className="hover:opacity-70">Instagram</a>
             <a href="#contact" className="hover:opacity-70">Contact</a>
-            <a href="/terms.html" className="hover:opacity-70">Terms of use</a>
+            <a href="/terms" className="hover:opacity-70">Terms of use</a>
           </nav>
 
           
@@ -320,10 +320,10 @@ export default function App() {
             © <span>{year}</span> M1llion. All rights reserved.
           </span>
           <div className="flex gap-4">
-            <a className="underline" href="/privacy.html">
+            <a className="underline" href="/privacy">
               Privacy
             </a>
-            <a className="underline" href="/terms.html">
+            <a className="underline" href="/terms">
               Terms of use
             </a>
           </div>
