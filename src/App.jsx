@@ -324,7 +324,7 @@ export default function App() {
               Privacy
             </a>
             <a className="underline" href="/terms.html">
-              Terms
+              Terms of use
             </a>
           </div>
         </div>
