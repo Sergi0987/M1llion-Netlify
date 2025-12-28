@@ -57,6 +57,7 @@ export default function App() {
             <a href="#about" className="hover:opacity-70">About</a>
             <a href="#instagram" className="hover:opacity-70">Instagram</a>
             <a href="#contact" className="hover:opacity-70">Contact</a>
+            <a href="/terms.html" className="hover:opacity-70">Terms of use</a>
           </nav>
 
           
