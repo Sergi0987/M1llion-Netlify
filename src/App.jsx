@@ -281,9 +281,10 @@ export default function App() {
         {/* About */}
         <section id="about" className="scroll-mt-24 bg-slate-50 border-y">
           <div className="max-w-6xl mx-auto px-4 py-14 grid gap-10 md:grid-cols-2 items-center">
-            <div className="order-2 md:order-1 aspect-[4/3] rounded-2xl overflow-hidden bg-slate-100">
+            <div className="order-2 md:order-1 max-w-sm mx-auto md:max-w-none
+                aspect-[3/4] rounded-2xl overflow-hidden bg-black">
               <img
-                src="https://picsum.photos/1200/900?grayscale&random=10"
+                src="/headshot.png"
                 alt="Carolina training clients in a gym"
                 className="w-full h-full object-cover"
                 loading="lazy"
