@@ -62,8 +62,16 @@ export default function App() {
       {/* Header */}
       <header className="sticky top-0 z-50 bg-white/90 backdrop-blur border-b">
         <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
-          <a href="#top" className={`text-xl font-bold ${focusRing}`}>
-            M1llion
+          <a
+            href="#top"
+            className={`flex items-center ${focusRing}`}
+            aria-label="M1llion Fitness home"
+          >
+            <img
+              src="/logoCropped.png"
+              alt="M1llion Fitness"
+              className="h-10 md:h-12 w-auto"
+            />
           </a>
 
           {/* Desktop nav */}
