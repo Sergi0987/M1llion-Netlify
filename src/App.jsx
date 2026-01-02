@@ -140,11 +140,11 @@ export default function App() {
           <div className="grid gap-10 md:grid-cols-2 md:items-center md:gap-12">
             {/* Logo FIRST on mobile, SECOND on desktop */}
             <div className="order-1 md:order-2">
-              <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-slate-100 max-w-xs mx-auto md:max-w-none">
+              <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-slate-100 w-full max-w-sm mx-auto sm:max-w-md md:max-w-none">
                 <img
-                  src="/M1llionLogo.png"
+                  src="/C14.png"
                   alt="M1llion Fitness logo"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover object-top"
                 />
               </div>
             </div>
@@ -288,25 +288,32 @@ export default function App() {
 
         {/* About */}
         <section id="about" className="scroll-mt-24 bg-slate-50 border-y">
-          <div className="max-w-6xl mx-auto px-4 py-14 grid gap-10 md:grid-cols-2 items-center">
-            <div className="order-2 md:order-1 max-w-sm mx-auto md:max-w-none
-                aspect-[3/4] rounded-2xl overflow-hidden bg-black">
-              <img
-                src="/headshot.png"
-                alt="Carolina training clients in a gym"
-                className="w-full h-full object-cover"
-                loading="lazy"
-              />
+          <div className="max-w-6xl mx-auto px-4 py-14 grid gap-10 md:grid-cols-2 items-stretch">
+            
+            {/* Image column */}
+            <div className="order-2 md:order-1 w-full flex justify-center md:justify-start">
+              <div className="w-full max-w-lg rounded-2xl overflow-hidden bg-black min-h-[480px] max-h-[680px]">
+                <img
+                  src="/headshot.png"
+                  alt="Carolina training clients in a gym"
+                  className="w-full h-full object-cover object-center"
+                  loading="lazy"
+                />
+              </div>
             </div>
-            <div className="order-1 md:order-2 text-center md:text-left">
+
+            {/* Text column */}
+            <div className="order-1 md:order-2 flex flex-col justify-center text-center md:text-left">
               <h2 className="text-3xl font-bold">Meet Carolina</h2>
               <p className="mt-3 text-slate-700">
                 Certified trainer helping clients build strength and confidence,
                 on and off the gym floor.
               </p>
             </div>
+
           </div>
         </section>
+
 
         {/* Instagram */}
         <section id="instagram" className="scroll-mt-24 bg-slate-50 border-y">
