@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 const products = [
   {
@@ -34,6 +34,39 @@ const focusRing =
 export default function App() {
   const year = new Date().getFullYear();
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
+
+  const mobileNavRef = useRef(null);
+  const mobileBtnRef = useRef(null);
+
+  useEffect(() => {
+    if (!mobileNavOpen) return;
+
+    const onPointerDown = (e) => {
+      const nav = mobileNavRef.current;
+      const btn = mobileBtnRef.current;
+      if (!nav || !btn) return;
+
+      const clickedInsideNav = nav.contains(e.target);
+      const clickedButton = btn.contains(e.target);
+
+      if (!clickedInsideNav && !clickedButton) {
+        setMobileNavOpen(false);
+      }
+    };
+
+    const onKeyDown = (e) => {
+      if (e.key === "Escape") setMobileNavOpen(false);
+    };
+
+    document.addEventListener("pointerdown", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+
+    return () => {
+      document.removeEventListener("pointerdown", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [mobileNavOpen]);
+
 
   useEffect(() => {
     const scriptId = "elfsight-platform-script";
@@ -78,10 +111,10 @@ export default function App() {
           <nav aria-label="Primary" className="hidden md:flex gap-8 text-sm font-medium">
             <a href="#coaching" className={`hover:opacity-70 ${focusRing}`}>
               Coaching
-            </a>
-            <a href="#shop" className={`hover:opacity-70 ${focusRing}`}>
+             </a>
+            {/* <a href="#shop" className={`hover:opacity-70 ${focusRing}`}>
               Shop
-            </a>
+            </a> */}
             <a href="#about" className={`hover:opacity-70 ${focusRing}`}>
               About
             </a>
@@ -115,9 +148,9 @@ export default function App() {
             <a href="#coaching" onClick={closeMobileNav} className={`py-2 ${focusRing}`}>
               Coaching
             </a>
-            <a href="#shop" onClick={closeMobileNav} className={`py-2 ${focusRing}`}>
+            {/* <a href="#shop" onClick={closeMobileNav} className={`py-2 ${focusRing}`}>
               Shop
-            </a>
+            </a> */}
             <a href="#about" onClick={closeMobileNav} className={`py-2 ${focusRing}`}>
               About
             </a>
@@ -166,12 +199,13 @@ export default function App() {
                 >
                   Start Coaching
                 </a>
+                {/*}
                 <a
                   href="#shop"
                   className={`px-6 py-3 rounded-xl border ${focusRing}`}
                 >
                   Shop Apparel
-                </a>
+                </a> */}
               </div>
             </div>
           </div>
@@ -246,6 +280,7 @@ export default function App() {
         </section>
 
         {/* Shop */}
+        {/*
         <section id="shop" className="scroll-mt-24 max-w-6xl mx-auto px-4 py-14">
           <h2 className="text-center md:text-left text-3xl font-bold">Featured Apparel</h2>
           <p className="text-center md:text-left mt-2 text-slate-700">Secure checkout via Stripe.</p>
@@ -285,6 +320,7 @@ export default function App() {
             Shipping &amp; returns info at checkout.
           </p>
         </section>
+        */}
 
         {/* About */}
         <section id="about" className="scroll-mt-24 bg-slate-50 border-y">
