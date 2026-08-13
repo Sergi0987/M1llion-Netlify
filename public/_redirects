@@ -1,2 +1,6 @@
 /terms   /terms.html   200
 /privacy /privacy.html 200
+
+# SPA fallback for react-router-dom — needed once routes beyond "/" exist
+# (e.g. the training/portal pages), so a refresh or shared link doesn't 404.
+/*       /index.html   200
