@@ -12,6 +12,10 @@ const ringDark =
 
 // No client portal yet on this site — training/portal launches later. Nav is
 // section anchors only until then.
+// Packages are actually bought on Kahunas. The inquiry form below stays for
+// people who want to talk to Carolina before they commit.
+const KAHUNAS_URL = 'https://kahunas.io/coach/packages/list/a13e6be5-d737-47e0-b37e-8e8efbcf2c4c';
+
 const NAV = [
   ['#coaching', 'Coaching'],
   ['#coach', 'The Coach'],
@@ -293,6 +297,16 @@ export default function Home({ theme, setTheme }) {
                 >
                   Apply for coaching
                   <span aria-hidden="true">→</span>
+                </a>
+
+                <a
+                  href={KAHUNAS_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={`inline-flex items-center justify-center gap-3 border border-bone/45 px-8 py-4 text-[0.72rem] uppercase tracking-[0.2em] text-bone transition-colors hover:border-bone hover:bg-bone/10 ${ringDark}`}
+                >
+                  Sign up online
+                  <span aria-hidden="true">↗</span>
                 </a>
               </div>
             </div>
