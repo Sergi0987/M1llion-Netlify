@@ -10,15 +10,21 @@ const ringLight =
 const ringDark =
   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-butter focus-visible:ring-offset-charcoal';
 
-// No client portal yet on this site — training/portal launches later. Nav is
-// section anchors only until then.
-// Packages are actually bought on Kahunas. The inquiry form below stays for
-// people who want to talk to Carolina before they commit.
+// Everything transactional lives on Kahunas and Setmore: packages are bought on
+// Kahunas, intake is answered on Kahunas, and classes are booked on Setmore.
 const KAHUNAS_URL = 'https://kahunas.io/coach/packages/list/a13e6be5-d737-47e0-b37e-8e8efbcf2c4c';
+const KAHUNAS_INTAKE_URL = 'https://kahunas.io/contact/person_info/2f00daa6-9b9c-4981-a866-37e60fa49b7f';
+const CLASS_URL = 'https://m1llionfitness.setmore.com/';
+const BOOTY_CLASS_URL =
+  'https://m1llionfitness.setmore.com/?instant_experiences_enabled=true&utm_source=ig&utm_medium=social&utm_content=link_in_bio&utm_id=97760_v0_s00_e0_tv3';
 
+// No client portal yet on this site — training/portal launches later. Nav is
+// section anchors, plus the one booking link that has to stay reachable from
+// every screen. A third entry marks a link that leaves the site.
 const NAV = [
   ['#coaching', 'Coaching'],
   ['#coach', 'The Coach'],
+  [BOOTY_CLASS_URL, 'Booty Class', true],
   ['#instagram', 'Feed'],
   ['#inquire', 'Inquire'],
 ];
@@ -43,12 +49,10 @@ export default function Home({ theme, setTheme }) {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [heroSrc, setHeroSrc] = useState('/editorial-01.jpg');
   const [studySrc, setStudySrc] = useState('/editorial-02.jpg');
-  const [feedArmed, setFeedArmed] = useState(false);
+  const [feedArmed, setFeedArmed] = useState(() => typeof IntersectionObserver === 'undefined');
   const mobileNavRef = useRef(null);
   const mobileBtnRef = useRef(null);
   const feedRef = useRef(null);
-  const [interest, setInterest] = useState('1:1 coaching');
-  const [formState, setFormState] = useState('idle');
   const isDark = theme === 'dark';
   const focusRing = isDark ? ringDark : ringLight;
 
@@ -106,11 +110,6 @@ export default function Home({ theme, setTheme }) {
       return undefined;
     }
 
-    if (typeof IntersectionObserver === 'undefined') {
-      setFeedArmed(true);
-      return undefined;
-    }
-
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries.some((entry) => entry.isIntersecting)) {
@@ -147,30 +146,6 @@ export default function Home({ theme, setTheme }) {
     setMobileNavOpen(false);
   }
 
-  async function submitInquiry(event) {
-    event.preventDefault();
-
-    const form = event.currentTarget;
-    setFormState('sending');
-
-    try {
-      const response = await fetch('https://formspree.io/f/xzzjagqp', {
-        method: 'POST',
-        body: new FormData(form),
-        headers: { Accept: 'application/json' },
-      });
-
-      if (!response.ok) {
-        throw new Error('Formspree rejected the submission');
-      }
-
-      form.reset();
-      setFormState('sent');
-    } catch {
-      setFormState('error');
-    }
-  }
-
   return (
     <div className={`m1 min-h-screen ${ground}`}>
       <a
@@ -196,9 +171,16 @@ export default function Home({ theme, setTheme }) {
             aria-label="Primary"
             className="hidden items-center gap-9 text-[0.68rem] uppercase tracking-[0.2em] md:flex"
           >
-            {NAV.map(([href, label]) => (
-              <a key={href} href={href} className={`transition-colors hover:text-olive ${focusRing}`}>
+            {NAV.map(([href, label, external]) => (
+              <a
+                key={href}
+                href={href}
+                target={external ? '_blank' : undefined}
+                rel={external ? 'noreferrer' : undefined}
+                className={`transition-colors hover:text-olive ${focusRing}`}
+              >
                 {label}
+                {external ? <span aria-hidden="true"> ↗</span> : null}
               </a>
             ))}
             <ThemeToggle theme={theme} setTheme={setTheme} variant="plate" />
@@ -225,14 +207,17 @@ export default function Home({ theme, setTheme }) {
           }`}
         >
           <div className="mx-auto grid max-w-[86rem] px-5 py-2 text-[0.72rem] uppercase tracking-[0.2em] sm:px-8">
-            {NAV.map(([href, label]) => (
+            {NAV.map(([href, label, external]) => (
               <a
                 key={href}
                 href={href}
+                target={external ? '_blank' : undefined}
+                rel={external ? 'noreferrer' : undefined}
                 onClick={closeMobileNav}
                 className={`border-b py-3 ${ruleFaint} ${focusRing}`}
               >
                 {label}
+                {external ? <span aria-hidden="true"> ↗</span> : null}
               </a>
             ))}
             <div className="py-3">
@@ -292,11 +277,13 @@ export default function Home({ theme, setTheme }) {
 
               <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
                 <a
-                  href="#inquire"
+                  href={KAHUNAS_INTAKE_URL}
+                  target="_blank"
+                  rel="noreferrer"
                   className={`inline-flex items-center justify-center gap-3 bg-bone px-8 py-4 text-[0.72rem] uppercase tracking-[0.2em] text-charcoal transition-colors hover:bg-butter ${ringDark}`}
                 >
                   Apply for coaching
-                  <span aria-hidden="true">→</span>
+                  <span aria-hidden="true">↗</span>
                 </a>
 
                 <a
@@ -341,8 +328,9 @@ export default function Home({ theme, setTheme }) {
               figure="Fig. 1 — 1:1 Online Coaching"
               items={ONE_TO_ONE}
               isDark={isDark}
-              ctaHref="#inquire"
+              ctaHref={KAHUNAS_INTAKE_URL}
               ctaLabel="Apply for 1:1 coaching"
+              ctaExternal
             />
           </div>
 
@@ -353,6 +341,20 @@ export default function Home({ theme, setTheme }) {
                   Group classes
                 </h3>
                 <p className={`mt-4 font-serif text-lg italic ${inkSoft}`}>Fig. 2 — In the room</p>
+
+                <figure className="mt-6">
+                  <div className={`overflow-hidden border ${rule}`}>
+                    <img
+                      src="/group-class.jpg"
+                      alt="A M1LLION group class together after a session"
+                      loading="lazy"
+                      className="m1-photo aspect-[3/4] w-full object-cover object-center"
+                    />
+                  </div>
+                  <figcaption className={`mt-3 font-serif text-sm italic ${inkSoft}`}>
+                    Fig. 2a — The room, after the work
+                  </figcaption>
+                </figure>
               </div>
 
               <div>
@@ -365,17 +367,31 @@ export default function Home({ theme, setTheme }) {
                   ))}
                 </dl>
 
-                <a
-                  href="https://m1llionfitness.setmore.com/"
-                  target="_blank"
-                  rel="noreferrer"
-                  className={`mt-7 inline-flex items-center gap-3 border px-8 py-4 text-[0.7rem] uppercase tracking-[0.2em] transition-colors ${rule} ${
-                    isDark ? 'hover:border-bone' : 'hover:border-charcoal'
-                  } ${focusRing}`}
-                >
-                  Book a class
-                  <span aria-hidden="true">↗</span>
-                </a>
+                <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
+                  <a
+                    href={BOOTY_CLASS_URL}
+                    target="_blank"
+                    rel="noreferrer"
+                    className={`inline-flex items-center justify-center gap-3 px-8 py-4 text-[0.7rem] uppercase tracking-[0.2em] transition-colors ${
+                      isDark ? 'bg-bone text-charcoal hover:bg-butter' : 'bg-charcoal text-bone hover:bg-darkolive'
+                    } ${focusRing}`}
+                  >
+                    Book the booty class
+                    <span aria-hidden="true">↗</span>
+                  </a>
+
+                  <a
+                    href={CLASS_URL}
+                    target="_blank"
+                    rel="noreferrer"
+                    className={`inline-flex items-center justify-center gap-3 border px-8 py-4 text-[0.7rem] uppercase tracking-[0.2em] transition-colors ${rule} ${
+                      isDark ? 'hover:border-bone' : 'hover:border-charcoal'
+                    } ${focusRing}`}
+                  >
+                    All classes
+                    <span aria-hidden="true">↗</span>
+                  </a>
+                </div>
               </div>
             </div>
           </div>
@@ -440,6 +456,29 @@ export default function Home({ theme, setTheme }) {
                 work with her online through the portal or in person in class.
               </p>
 
+              <div className={`mt-8 border-t pt-8 ${rule}`}>
+                <p className={`max-w-[58ch] font-serif text-[clamp(1.1rem,1.9vw,1.4rem)] font-light italic leading-[1.55] ${ink}`}>
+                  At M1LLION Fitness, my goal is to build more than strong bodies.
+                </p>
+
+                <p className={`mt-5 max-w-[58ch] text-[0.95rem] leading-[1.8] ${inkBody}`}>
+                  Through movement, education, and intentional coaching, I help you become stronger, move with
+                  confidence, and understand the why behind what you do, so you’re equipped to carry it beyond the
+                  gym.
+                </p>
+
+                <p className={`mt-5 max-w-[58ch] text-[0.95rem] leading-[1.8] ${inkBody}`}>
+                  Because strength isn’t just physical. It’s how you show up, what you believe about yourself, and
+                  what you pour into others.
+                </p>
+
+                <p className={`mt-7 max-w-[46ch] text-[0.72rem] uppercase leading-[2] tracking-[0.2em] ${inkSoft}`}>
+                  Build the body. Strengthen the soul. Renew the mind. Equip the person.
+                </p>
+
+                <p className={`mt-3 font-serif text-lg italic ${inkSoft}`}>From one to many.</p>
+              </div>
+
               <dl className={`mt-9 border-t ${rule}`}>
                 {[
                   ['Practice', 'Strength, conditioning, and nutrition coaching'],
@@ -497,14 +536,15 @@ export default function Home({ theme, setTheme }) {
                 institutional graphics rather than gym merchandise. Nothing is for sale yet.
               </p>
               <a
-                href="#inquire"
-                onClick={() => setInterest('Apparel')}
+                href="https://www.instagram.com/m1llionfitness/"
+                target="_blank"
+                rel="noreferrer"
                 className={`mt-6 inline-flex items-center gap-3 border px-8 py-4 text-[0.72rem] uppercase tracking-[0.2em] transition-colors ${rule} ${
                   isDark ? 'hover:border-bone' : 'hover:border-charcoal'
                 } ${focusRing}`}
               >
                 Ask to be told first
-                <span aria-hidden="true">→</span>
+                <span aria-hidden="true">↗</span>
               </a>
             </div>
           </div>
@@ -531,69 +571,51 @@ export default function Home({ theme, setTheme }) {
                   Tell Carolina what you are training for.
                 </p>
                 <p className="mt-6 max-w-[52ch] text-[0.95rem] leading-[1.8] text-sage">
-                  {interest === 'Apparel'
-                    ? 'You are asking about apparel — leave your name and email and you will hear when the first pieces are ready.'
-                    : '1:1 coaching starts here. Say where you are now, what you want, and what your week actually looks like — the more honest the picture, the better the programming.'}
+                  1:1 coaching starts with the intake form. Say where you are now, what you want, and what your week
+                  actually looks like — the more honest the picture, the better the programming.
                 </p>
               </div>
 
-              <form onSubmit={submitInquiry} acceptCharset="UTF-8" className="grid gap-7">
-                <input type="hidden" name="_subject" value={`New ${interest} inquiry from M1LLION`} />
-                <input type="hidden" name="interest" value={interest} />
-                <input
-                  type="text"
-                  name="_gotcha"
-                  style={{ display: 'none' }}
-                  tabIndex={-1}
-                  autoComplete="off"
-                  aria-hidden="true"
-                />
-
-                {[
-                  { name: 'name', label: 'Name', type: 'text', autoComplete: 'name', required: true },
-                  { name: 'email', label: 'Email', type: 'email', autoComplete: 'email', required: true },
-                  { name: 'goal', label: 'What are you training for', type: 'text', required: false },
-                ].map((field) => (
-                  <label key={field.name} className="block">
-                    <span className="block text-[0.72rem] uppercase tracking-[0.2em] text-sage">
-                      {field.label}
-                    </span>
-                    <input
-                      name={field.name}
-                      type={field.type}
-                      autoComplete={field.autoComplete}
-                      required={field.required}
-                      className={`mt-2 w-full border-b border-bone/30 bg-transparent pb-2.5 text-[1.05rem] text-bone outline-none transition-colors focus:border-butter ${ringDark}`}
-                    />
-                  </label>
-                ))}
-
-                <label className="block">
-                  <span className="block text-[0.72rem] uppercase tracking-[0.2em] text-sage">Message</span>
-                  <textarea
-                    name="message"
-                    rows={4}
-                    className={`mt-2 w-full resize-y border-b border-bone/30 bg-transparent pb-2.5 text-[1.05rem] text-bone outline-none transition-colors focus:border-butter ${ringDark}`}
-                  />
-                </label>
-
-                <button
-                  type="submit"
-                  disabled={formState === 'sending'}
-                  className={`mt-1 inline-flex items-center justify-center gap-3 bg-bone px-8 py-4 text-[0.72rem] uppercase tracking-[0.2em] text-charcoal transition-colors hover:bg-butter disabled:cursor-not-allowed disabled:opacity-70 ${ringDark}`}
-                >
-                  {formState === 'sending' ? 'Sending…' : 'Send inquiry'}
-                  {formState === 'sending' ? null : <span aria-hidden="true">→</span>}
-                </button>
-
-                <p aria-live="polite" className="text-[0.85rem] leading-relaxed text-sage">
-                  {formState === 'sent'
-                    ? 'Sent. Your inquiry is with Carolina.'
-                    : formState === 'error'
-                      ? 'That did not send. Try again, or reach Carolina on Instagram.'
-                      : 'Your inquiry goes straight to Carolina.'}
+              <div className="lg:pt-2">
+                <p className="max-w-[52ch] text-[0.95rem] leading-[1.8] text-sage">
+                  The form lives on Kahunas, the same place your programming, check-ins, and history will live once
+                  you start. It opens in a new tab.
                 </p>
-              </form>
+
+                <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
+                  <a
+                    href={KAHUNAS_INTAKE_URL}
+                    target="_blank"
+                    rel="noreferrer"
+                    className={`inline-flex items-center justify-center gap-3 bg-bone px-8 py-4 text-[0.72rem] uppercase tracking-[0.2em] text-charcoal transition-colors hover:bg-butter ${ringDark}`}
+                  >
+                    Open the intake form
+                    <span aria-hidden="true">↗</span>
+                  </a>
+
+                  <a
+                    href={KAHUNAS_URL}
+                    target="_blank"
+                    rel="noreferrer"
+                    className={`inline-flex items-center justify-center gap-3 border border-bone/45 px-8 py-4 text-[0.72rem] uppercase tracking-[0.2em] text-bone transition-colors hover:border-bone hover:bg-bone/10 ${ringDark}`}
+                  >
+                    See the packages
+                    <span aria-hidden="true">↗</span>
+                  </a>
+                </div>
+
+                <p className="mt-8 border-t border-bone/20 pt-6 text-[0.95rem] leading-[1.8] text-sage">
+                  Booking a class instead?{' '}
+                  <a
+                    href={BOOTY_CLASS_URL}
+                    target="_blank"
+                    rel="noreferrer"
+                    className={`text-bone underline underline-offset-4 transition-colors hover:text-butter ${ringDark}`}
+                  >
+                    Book the booty class ↗
+                  </a>
+                </p>
+              </div>
             </div>
           </div>
         </section>

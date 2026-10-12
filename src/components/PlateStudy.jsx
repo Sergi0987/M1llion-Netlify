@@ -2,7 +2,7 @@ import { useReveal } from '../utils/useReveal.js';
 
 // The study: a figure and its legend. The figure is shown whole and unmarked;
 // the numbering lives entirely in the legend beside it.
-export default function PlateStudy({ src, onError, alt, figure, items, isDark, ctaHref, ctaLabel }) {
+export default function PlateStudy({ src, onError, alt, figure, items, isDark, ctaHref, ctaLabel, ctaExternal }) {
   const revealRef = useReveal();
 
   const rule = isDark ? 'border-bone/25' : 'border-charcoal/20';
@@ -51,6 +51,8 @@ export default function PlateStudy({ src, onError, alt, figure, items, isDark, c
 
         <a
           href={ctaHref}
+          target={ctaExternal ? '_blank' : undefined}
+          rel={ctaExternal ? 'noreferrer' : undefined}
           className={`mt-9 inline-flex items-center gap-3 self-start px-8 py-4 text-[0.72rem] uppercase tracking-[0.2em] transition-colors ${
             isDark ? 'bg-bone text-charcoal hover:bg-butter' : 'bg-charcoal text-bone hover:bg-darkolive'
           } focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-4 ${
@@ -60,7 +62,7 @@ export default function PlateStudy({ src, onError, alt, figure, items, isDark, c
           }`}
         >
           {ctaLabel}
-          <span aria-hidden="true">→</span>
+          <span aria-hidden="true">{ctaExternal ? '↗' : '→'}</span>
         </a>
       </div>
     </div>
