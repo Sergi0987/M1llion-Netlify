@@ -556,28 +556,18 @@ export default function Home({ theme, setTheme }) {
               <span>The foundation</span>
             </div>
 
-            <div className="py-20 sm:py-28">
-              <div className="max-w-[54rem]">
+            {/* Two columns, like every other plate: the title and its refrain on
+                the left rail, the argument itself on the right. A single column
+                left half the sheet empty on wide screens. */}
+            <div className="grid gap-10 py-20 sm:py-28 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)] lg:gap-16">
+              <div>
                 <h2 className="font-display text-[clamp(2rem,5.5vw,3.75rem)] uppercase leading-[0.96]">
                   Strength is stewardship
                 </h2>
 
-                <p className="mt-7 max-w-[52ch] font-serif text-[clamp(1.25rem,2.5vw,1.75rem)] font-light italic leading-[1.4] text-sand">
+                <p className="mt-7 max-w-[34ch] font-serif text-[clamp(1.25rem,2.5vw,1.75rem)] font-light italic leading-[1.4] text-sand">
                   What God has entrusted to us was never meant to be neglected.
                 </p>
-
-                <div className="mt-10 border-t border-bone/25 pt-8">
-                  {STEWARDSHIP.map((line) => (
-                    <p key={line} className="mt-5 max-w-[60ch] text-[0.95rem] leading-[1.8] text-sage first:mt-0">
-                      {line}
-                    </p>
-                  ))}
-
-                  <p className="mt-8 max-w-[60ch] text-[1.05rem] leading-[1.75] text-bone">
-                    Because transformation isn’t just about becoming more. It’s about becoming faithful with what
-                    is already in our hands.
-                  </p>
-                </div>
 
                 <p className="mt-10 text-[0.62rem] uppercase tracking-[0.34em] text-butter">
                   Work. Worship. Witness.
@@ -587,19 +577,34 @@ export default function Home({ theme, setTheme }) {
                 </p>
               </div>
 
-              <div className="mt-12 max-w-[54rem] border-t border-bone/25 pt-8">
-                <p className="text-[0.72rem] uppercase tracking-[0.2em] text-bone">Go deeper.</p>
-                <p className="mt-3 max-w-[58ch] text-[0.95rem] leading-[1.8] text-sage">
-                  Explore the M1LLION Foundations — the principles behind how we train, think, and steward what
-                  we’ve been given.
-                </p>
+              <div>
+                <div className="border-t border-bone/25 pt-8 lg:border-t-0 lg:pt-1">
+                  {STEWARDSHIP.map((line) => (
+                    <p key={line} className="mt-5 max-w-[56ch] text-[0.95rem] leading-[1.8] text-sage first:mt-0">
+                      {line}
+                    </p>
+                  ))}
 
-                {/* The Foundations page does not exist yet. Marked honestly rather
-                    than linked back to this same section; swap in the real href
-                    once the page lands. */}
-                <p className="mt-6 inline-flex border border-bone/25 px-6 py-3 text-[0.68rem] uppercase tracking-[0.2em] text-sage">
-                  The Foundations page is in preparation
-                </p>
+                  <p className="mt-8 max-w-[56ch] text-[1.05rem] leading-[1.75] text-bone">
+                    Because transformation isn’t just about becoming more. It’s about becoming faithful with what
+                    is already in our hands.
+                  </p>
+                </div>
+
+                <div className="mt-10 border-t border-bone/25 pt-8">
+                  <p className="text-[0.72rem] uppercase tracking-[0.2em] text-bone">Go deeper.</p>
+                  <p className="mt-3 max-w-[56ch] text-[0.95rem] leading-[1.8] text-sage">
+                    Explore the M1LLION Foundations — the principles behind how we train, think, and steward what
+                    we’ve been given.
+                  </p>
+
+                  {/* The Foundations page does not exist yet. Marked honestly rather
+                      than linked back to this same section; swap in the real href
+                      once the page lands. */}
+                  <p className="mt-6 inline-flex border border-bone/25 px-6 py-3 text-[0.68rem] uppercase tracking-[0.2em] text-sage">
+                    The Foundations page is in preparation
+                  </p>
+                </div>
               </div>
             </div>
           </div>
