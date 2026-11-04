@@ -482,7 +482,9 @@ export default function Home({ theme, setTheme }) {
           </div>
 
           <div className={`mt-16 border-t pt-10 ${rule}`}>
-            <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] lg:gap-14">
+            {/* The portrait photograph is much taller than its legend, so the
+                legend sits against the middle of the figure rather than its top. */}
+            <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] lg:items-center lg:gap-14">
               <div>
                 <h3 className={`font-display text-[clamp(1.6rem,3.5vw,2.5rem)] uppercase leading-[1] ${ink}`}>
                   Group classes
