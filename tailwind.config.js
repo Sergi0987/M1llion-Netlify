@@ -7,20 +7,12 @@ export default {
   theme: {
     extend: {
       colors: {
-        // M1LLION brand bible, Working Edition 02 — muted earth + butter light.
-        bone: '#F5F2EC',
-        paper: '#EFEAE2',
-        charcoal: '#1F1F1D',
-        graphite: '#353432',
-        olive: '#6C6A45',
-        sage: '#AEB1A2',
-        sand: '#DDD3C6',
-        bronze: '#8B5E3C',
-        clay: '#CFA89A',
-        butter: '#E7D48B',
-        stone: '#77726B',
-        darkolive: '#454733',
-        forest: '#394337',
+        // M1LLION / Visual identity — five neutrals, nothing else.
+        obsidian: '#181818',
+        charcoal: '#333330',
+        stone: '#77746E',
+        taupe: '#B6ADA0',
+        bone: '#F0ECE4',
       },
       fontFamily: {
         // Pinned by the brand bible's Canva font system.

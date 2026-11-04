@@ -5,15 +5,14 @@ import Plate from '../components/Plate.jsx';
 // Focus has to clear 3:1 against whichever ground it lands on, so the ring is
 // picked per theme rather than shared.
 const ringLight =
-  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-charcoal focus-visible:ring-offset-bone';
+  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-obsidian focus-visible:ring-offset-bone';
 const ringDark =
-  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-butter focus-visible:ring-offset-charcoal';
+  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-taupe focus-visible:ring-offset-obsidian';
 
 // Everything transactional lives on Kahunas and Setmore: packages are bought on
 // Kahunas, intake is answered on Kahunas, and classes are booked on Setmore.
 const KAHUNAS_URL = 'https://kahunas.io/coach/packages/list/a13e6be5-d737-47e0-b37e-8e8efbcf2c4c';
 const KAHUNAS_INTAKE_URL = 'https://kahunas.io/contact/person_info/2f00daa6-9b9c-4981-a866-37e60fa49b7f';
-const CLASS_URL = 'https://m1llionfitness.setmore.com/';
 const BOOTY_CLASS_URL =
   'https://m1llionfitness.setmore.com/?instant_experiences_enabled=true&utm_source=ig&utm_medium=social&utm_content=link_in_bio&utm_id=97760_v0_s00_e0_tv3';
 // The programme and the events both sell through Carolina's Stan store.
@@ -74,10 +73,8 @@ const NEXT_STEP = [
     body: 'Movement, connection, and meaningful experiences that bring people together beyond the screen.',
     cta: 'Explore events',
     href: STAN_STORE_URL,
-    // Temporary stock photograph (Unsplash licence) so this card does not repeat
-    // the group picture used in the classes block. Swap for a real event photo.
-    src: '/community-placeholder.jpg',
-    alt: 'A group class working through a set together',
+    src: '/group-class.jpg',
+    alt: 'A M1LLION group together after a session',
     wide: true,
   },
 ];
@@ -88,12 +85,6 @@ const STEWARDSHIP = [
   'These are not things we simply possess. They are things we have been entrusted to steward.',
   'Discipline is not punishment. It is the intentional decision to honor what we’ve been given.',
   'Strength is not measured only by what we can lift, but by what we can carry, cultivate, and contribute.',
-];
-
-const CLASSES = [
-  ['Strength and conditioning', 'Barbell and conditioning work programmed for a room, scaled to the person.'],
-  ['A women-focused room', 'Built to be supportive without being soft on the work.'],
-  ['Single sessions or packs', 'Come once or commit to a block.'],
 ];
 
 export default function Home({ theme, setTheme }) {
@@ -110,15 +101,28 @@ export default function Home({ theme, setTheme }) {
 
   const logo = isDark ? '/logoWhite.png' : '/logoBlack.png';
 
-  // Ground / ink pairs. Light is bone paper, dark is the charcoal plate.
-  const ground = isDark ? 'bg-charcoal text-bone' : 'bg-bone text-charcoal';
-  const ink = isDark ? 'text-bone' : 'text-charcoal';
-  // Olive and sage are accents — they carry numbering, captions, and labels.
+  // Ground / ink pairs. Light is bone paper, dark is the obsidian plate.
+  const ground = isDark ? 'bg-obsidian text-bone' : 'bg-bone text-obsidian';
+  const ink = isDark ? 'text-bone' : 'text-obsidian';
+  // Olive and taupe are accents — they carry numbering, captions, and labels.
   // Running copy stays on a neutral so the 5-10% accent budget holds.
-  const inkSoft = isDark ? 'text-sage' : 'text-olive';
-  const inkBody = isDark ? 'text-sand' : 'text-graphite';
-  const rule = isDark ? 'border-bone/25' : 'border-charcoal/20';
-  const ruleFaint = isDark ? 'border-bone/12' : 'border-charcoal/10';
+  const inkSoft = isDark ? 'text-taupe' : 'text-stone';
+  const inkBody = isDark ? 'text-taupe' : 'text-charcoal';
+  const rule = isDark ? 'border-bone/25' : 'border-obsidian/20';
+  const ruleFaint = isDark ? 'border-bone/12' : 'border-obsidian/10';
+
+  // One button system for the whole page. Plate sections carry the outlined
+  // button; the solid one is reserved for the dark bands, where the two
+  // decisions that matter live.
+  const btnBase =
+    'inline-flex items-center justify-center gap-3 whitespace-nowrap px-8 py-4 text-[0.72rem] uppercase tracking-[0.2em] transition-colors';
+  const btnOutline = `${btnBase} border ${rule} ${
+    isDark ? 'hover:border-bone hover:bg-bone/10' : 'hover:border-obsidian hover:bg-obsidian/5'
+  } ${focusRing}`;
+  // The frontispiece, the foundation band and the inquire panel stay dark in
+  // either theme, so their pair is fixed rather than theme-picked.
+  const btnSolidDark = `${btnBase} bg-bone text-obsidian hover:bg-taupe ${ringDark}`;
+  const btnOutlineDark = `${btnBase} border border-bone/45 text-bone hover:border-bone hover:bg-bone/10 ${ringDark}`;
 
   useEffect(() => {
     if (!mobileNavOpen) {
@@ -203,7 +207,7 @@ export default function Home({ theme, setTheme }) {
       <a
         href="#main"
         className={`sr-only fixed left-4 top-4 z-[9999] border px-4 py-2 text-xs uppercase tracking-[0.18em] focus:not-sr-only ${rule} ${
-          isDark ? 'bg-charcoal' : 'bg-bone'
+          isDark ? 'bg-obsidian' : 'bg-bone'
         } ${focusRing}`}
       >
         Skip to content
@@ -211,7 +215,7 @@ export default function Home({ theme, setTheme }) {
 
       <header
         className={`sticky top-0 z-50 border-b ${rule} ${
-          isDark ? 'bg-charcoal/95' : 'bg-bone/95'
+          isDark ? 'bg-obsidian/95' : 'bg-bone/95'
         } backdrop-blur-[2px]`}
       >
         <div className="mx-auto flex max-w-[86rem] items-center justify-between gap-6 px-5 py-3.5 sm:px-8">
@@ -229,7 +233,7 @@ export default function Home({ theme, setTheme }) {
                 href={href}
                 target={external ? '_blank' : undefined}
                 rel={external ? 'noreferrer' : undefined}
-                className={`transition-colors hover:text-olive ${focusRing}`}
+                className={`transition-colors hover:text-stone ${focusRing}`}
               >
                 {label}
                 {external ? <span aria-hidden="true"> ↗</span> : null}
@@ -254,7 +258,7 @@ export default function Home({ theme, setTheme }) {
           id="mobile-nav"
           ref={mobileNavRef}
           aria-label="Mobile primary"
-          className={`border-t lg:hidden ${rule} ${isDark ? 'bg-charcoal' : 'bg-bone'} ${
+          className={`border-t lg:hidden ${rule} ${isDark ? 'bg-obsidian' : 'bg-bone'} ${
             mobileNavOpen ? 'block' : 'hidden'
           }`}
         >
@@ -283,7 +287,7 @@ export default function Home({ theme, setTheme }) {
         {/* ---------------------------------------------------------------
             Frontispiece
             --------------------------------------------------------------- */}
-        <section id="top" className="relative isolate overflow-hidden bg-charcoal text-bone">
+        <section id="top" className="relative isolate overflow-hidden bg-obsidian text-bone">
           {/* A contact sheet of the people, not one portrait. It is busy by
               nature, so it sits well back behind a flat wash before the
               gradient settles it into the page. */}
@@ -294,8 +298,8 @@ export default function Home({ theme, setTheme }) {
               alt="Members of M1LLION together"
               className="m1-photo h-full w-full object-cover object-center opacity-65"
             />
-            <div className="absolute inset-0 bg-charcoal/65" />
-            <div className="absolute inset-0 bg-gradient-to-b from-charcoal/55 via-charcoal/30 to-charcoal" />
+            <div className="absolute inset-0 bg-obsidian/65" />
+            <div className="absolute inset-0 bg-gradient-to-b from-obsidian/55 via-obsidian/30 to-obsidian" />
           </div>
 
           <div className="m1-grain m1-grain-light relative z-10 mx-auto flex min-h-[max(34rem,88svh)] max-w-[86rem] flex-col justify-end px-5 pb-10 pt-16 sm:px-8 sm:pb-14 sm:pt-24">
@@ -310,7 +314,7 @@ export default function Home({ theme, setTheme }) {
               <span className="absolute right-0 h-8 w-px bg-bone/45" />
             </div>
             <div className="mx-auto max-w-4xl py-14 text-center sm:py-20">
-              <p className="text-[0.62rem] uppercase tracking-[0.42em] text-sage">M1LLION Fitness</p>
+              <p className="text-[0.62rem] uppercase tracking-[0.42em] text-taupe">M1LLION Fitness</p>
 
               <h1 className="mt-6 font-display text-[clamp(2.6rem,9vw,6rem)] uppercase leading-[0.92] tracking-[-0.005em]">
                 From one
@@ -318,23 +322,23 @@ export default function Home({ theme, setTheme }) {
                 to many
               </h1>
 
-              <p className="mx-auto mt-7 max-w-[46ch] font-serif text-[clamp(1.25rem,2.5vw,1.75rem)] font-light italic leading-[1.45] text-sand">
+              <p className="mx-auto mt-7 max-w-[46ch] font-serif text-[clamp(1.25rem,2.5vw,1.75rem)] font-light italic leading-[1.45] text-taupe">
                 Train the Body. Renew the Mind. Multiply the Mission.
               </p>
 
               <div className="mx-auto mt-8 max-w-[46ch] border-t border-bone/20 pt-6">
-                <p className="font-serif text-[1.05rem] font-light italic leading-[1.6] text-sage">
+                <p className="font-serif text-[1.05rem] font-light italic leading-[1.6] text-taupe">
                   “…if it dies, it produces much fruit.”
                 </p>
-                <p className="mt-3 text-[0.62rem] uppercase tracking-[0.34em] text-butter">John 12:24</p>
+                <p className="mt-3 text-[0.62rem] uppercase tracking-[0.34em] text-bone">John 12:24</p>
               </div>
 
-              <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
+              <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap sm:gap-4">
                 <a
                   href={KAHUNAS_URL}
                   target="_blank"
                   rel="noreferrer"
-                  className={`inline-flex items-center justify-center gap-3 bg-bone px-8 py-4 text-[0.72rem] uppercase tracking-[0.2em] text-charcoal transition-colors hover:bg-butter ${ringDark}`}
+                  className={btnSolidDark}
                 >
                   Commit to change
                   <span aria-hidden="true">↗</span>
@@ -342,7 +346,7 @@ export default function Home({ theme, setTheme }) {
 
                 <a
                   href={FOUNDATION_HREF}
-                  className={`inline-flex items-center justify-center gap-3 border border-bone/45 px-8 py-4 text-[0.72rem] uppercase tracking-[0.2em] text-bone transition-colors hover:border-bone hover:bg-bone/10 ${ringDark}`}
+                  className={btnOutlineDark}
                 >
                   Our foundation
                   <span aria-hidden="true">→</span>
@@ -351,8 +355,8 @@ export default function Home({ theme, setTheme }) {
             </div>
 
             <div className={`flex items-end justify-between gap-6 border-t border-bone/20 pt-4`}>
-              <p className="text-[0.62rem] uppercase tracking-[0.28em] text-sage">Pl. I</p>
-              <p className="font-serif text-sm italic text-sand">The Mission</p>
+              <p className="text-[0.62rem] uppercase tracking-[0.28em] text-taupe">Pl. I</p>
+              <p className="font-serif text-sm italic text-taupe">The Mission</p>
             </div>
           </div>
         </section>
@@ -472,7 +476,7 @@ export default function Home({ theme, setTheme }) {
                   href={step.href}
                   target="_blank"
                   rel="noreferrer"
-                  className={`mt-4 inline-flex items-center gap-2 text-[0.7rem] uppercase tracking-[0.2em] underline underline-offset-4 transition-colors hover:text-olive ${ink} ${focusRing}`}
+                  className={`mt-5 ${btnOutline}`}
                 >
                   {step.cta}
                   <span aria-hidden="true">↗</span>
@@ -480,78 +484,14 @@ export default function Home({ theme, setTheme }) {
               </article>
             ))}
           </div>
-
-          <div className={`mt-16 border-t pt-10 ${rule}`}>
-            {/* The portrait photograph is much taller than its legend, so the
-                legend sits against the middle of the figure rather than its top. */}
-            <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] lg:items-center lg:gap-14">
-              <div>
-                <h3 className={`font-display text-[clamp(1.6rem,3.5vw,2.5rem)] uppercase leading-[1] ${ink}`}>
-                  Group classes
-                </h3>
-                <p className={`mt-4 font-serif text-lg italic ${inkSoft}`}>Fig. 2 — In the room</p>
-
-                <figure className="mt-6">
-                  <div className={`overflow-hidden border ${rule}`}>
-                    <img
-                      src="/group-class.jpg"
-                      alt="A M1LLION group class together after a session"
-                      loading="lazy"
-                      className="m1-photo aspect-[3/4] w-full object-cover object-center"
-                    />
-                  </div>
-                  <figcaption className={`mt-3 font-serif text-sm italic ${inkSoft}`}>
-                    Fig. 2a — The room, after the work
-                  </figcaption>
-                </figure>
-              </div>
-
-              <div>
-                <dl>
-                  {CLASSES.map(([term, detail]) => (
-                    <div key={term} className={`border-t py-4 first:border-t-0 first:pt-0 ${ruleFaint}`}>
-                      <dt className={`text-[0.74rem] uppercase tracking-[0.2em] ${ink}`}>{term}</dt>
-                      <dd className={`mt-1.5 max-w-[52ch] text-[0.95rem] leading-[1.7] ${inkBody}`}>{detail}</dd>
-                    </div>
-                  ))}
-                </dl>
-
-                <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
-                  <a
-                    href={BOOTY_CLASS_URL}
-                    target="_blank"
-                    rel="noreferrer"
-                    className={`inline-flex items-center justify-center gap-3 px-8 py-4 text-[0.7rem] uppercase tracking-[0.2em] transition-colors ${
-                      isDark ? 'bg-bone text-charcoal hover:bg-butter' : 'bg-charcoal text-bone hover:bg-darkolive'
-                    } ${focusRing}`}
-                  >
-                    Book the booty class
-                    <span aria-hidden="true">↗</span>
-                  </a>
-
-                  <a
-                    href={CLASS_URL}
-                    target="_blank"
-                    rel="noreferrer"
-                    className={`inline-flex items-center justify-center gap-3 border px-8 py-4 text-[0.7rem] uppercase tracking-[0.2em] transition-colors ${rule} ${
-                      isDark ? 'hover:border-bone' : 'hover:border-charcoal'
-                    } ${focusRing}`}
-                  >
-                    All classes
-                    <span aria-hidden="true">↗</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
         </Plate>
 
         {/* ---------------------------------------------------------------
             Pl. IV — the foundation
             --------------------------------------------------------------- */}
-        <section id="foundation" className="relative isolate scroll-mt-16 overflow-hidden bg-forest text-bone">
+        <section id="foundation" className="relative isolate scroll-mt-16 overflow-hidden bg-charcoal text-bone">
           <div className="m1-grain m1-grain-light relative mx-auto max-w-[86rem] px-5 sm:px-8">
-            <div className="flex items-baseline justify-between gap-6 border-b border-bone/25 py-4 text-[0.62rem] uppercase tracking-[0.28em] text-sage">
+            <div className="flex items-baseline justify-between gap-6 border-b border-bone/25 py-4 text-[0.62rem] uppercase tracking-[0.28em] text-taupe">
               <span>Pl. IV</span>
               <span>The foundation</span>
             </div>
@@ -565,14 +505,14 @@ export default function Home({ theme, setTheme }) {
                   Strength is stewardship
                 </h2>
 
-                <p className="mt-7 max-w-[34ch] font-serif text-[clamp(1.25rem,2.5vw,1.75rem)] font-light italic leading-[1.4] text-sand">
+                <p className="mt-7 max-w-[34ch] font-serif text-[clamp(1.25rem,2.5vw,1.75rem)] font-light italic leading-[1.4] text-taupe">
                   What God has entrusted to us was never meant to be neglected.
                 </p>
 
-                <p className="mt-10 text-[0.62rem] uppercase tracking-[0.34em] text-butter">
+                <p className="mt-10 text-[0.62rem] uppercase tracking-[0.34em] text-bone">
                   Work. Worship. Witness.
                 </p>
-                <p className="mt-3 text-[0.62rem] uppercase tracking-[0.28em] text-sage">
+                <p className="mt-3 text-[0.62rem] uppercase tracking-[0.28em] text-taupe">
                   Romans 12:1–2 &nbsp;/&nbsp; 1 Peter 4:10
                 </p>
               </div>
@@ -580,7 +520,7 @@ export default function Home({ theme, setTheme }) {
               <div>
                 <div className="border-t border-bone/25 pt-8 lg:border-t-0 lg:pt-1">
                   {STEWARDSHIP.map((line) => (
-                    <p key={line} className="mt-5 max-w-[56ch] text-[0.95rem] leading-[1.8] text-sage first:mt-0">
+                    <p key={line} className="mt-5 max-w-[56ch] text-[0.95rem] leading-[1.8] text-taupe first:mt-0">
                       {line}
                     </p>
                   ))}
@@ -593,7 +533,7 @@ export default function Home({ theme, setTheme }) {
 
                 <div className="mt-10 border-t border-bone/25 pt-8">
                   <p className="text-[0.72rem] uppercase tracking-[0.2em] text-bone">Go deeper.</p>
-                  <p className="mt-3 max-w-[56ch] text-[0.95rem] leading-[1.8] text-sage">
+                  <p className="mt-3 max-w-[56ch] text-[0.95rem] leading-[1.8] text-taupe">
                     Explore the M1LLION Foundations — the principles behind how we train, think, and steward what
                     we’ve been given.
                   </p>
@@ -601,7 +541,7 @@ export default function Home({ theme, setTheme }) {
                   {/* The Foundations page does not exist yet. Marked honestly rather
                       than linked back to this same section; swap in the real href
                       once the page lands. */}
-                  <p className="mt-6 inline-flex border border-bone/25 px-6 py-3 text-[0.68rem] uppercase tracking-[0.2em] text-sage">
+                  <p className="mt-6 inline-flex border border-bone/25 px-6 py-3 text-[0.68rem] uppercase tracking-[0.2em] text-taupe">
                     The Foundations page is in preparation
                   </p>
                 </div>
@@ -699,9 +639,10 @@ export default function Home({ theme, setTheme }) {
               href="https://www.instagram.com/m1llionfitness/"
               target="_blank"
               rel="noreferrer"
-              className={`text-[0.7rem] uppercase tracking-[0.2em] underline underline-offset-[6px] transition-colors hover:text-olive ${focusRing}`}
+              className={btnOutline}
             >
-              Follow on Instagram ↗
+              Follow on Instagram
+              <span aria-hidden="true">↗</span>
             </a>
           </div>
         </Plate>
@@ -723,9 +664,7 @@ export default function Home({ theme, setTheme }) {
                 href="https://www.instagram.com/m1llionfitness/"
                 target="_blank"
                 rel="noreferrer"
-                className={`mt-6 inline-flex items-center gap-3 border px-8 py-4 text-[0.72rem] uppercase tracking-[0.2em] transition-colors ${rule} ${
-                  isDark ? 'hover:border-bone' : 'hover:border-charcoal'
-                } ${focusRing}`}
+                className={`mt-6 ${btnOutline}`}
               >
                 Ask to be told first
                 <span aria-hidden="true">↗</span>
@@ -737,9 +676,9 @@ export default function Home({ theme, setTheme }) {
         {/* ---------------------------------------------------------------
             Inquire
             --------------------------------------------------------------- */}
-        <section id="inquire" className="relative isolate overflow-hidden bg-charcoal text-bone">
+        <section id="inquire" className="relative isolate overflow-hidden bg-obsidian text-bone">
           <div className="m1-grain m1-grain-light relative mx-auto max-w-[86rem] px-5 sm:px-8">
-            <div className="flex items-baseline justify-between gap-6 border-b border-bone/25 py-4 text-[0.62rem] uppercase tracking-[0.28em] text-sage">
+            <div className="flex items-baseline justify-between gap-6 border-b border-bone/25 py-4 text-[0.62rem] uppercase tracking-[0.28em] text-taupe">
               <span>Pl. VIII</span>
               <span>Inquire</span>
             </div>
@@ -751,27 +690,27 @@ export default function Home({ theme, setTheme }) {
                   <br />
                   conversation
                 </h2>
-                <p className="mt-6 max-w-[48ch] font-serif text-xl font-light italic leading-[1.5] text-sand">
+                <p className="mt-6 max-w-[48ch] font-serif text-xl font-light italic leading-[1.5] text-taupe">
                   Tell Carolina what you are training for.
                 </p>
-                <p className="mt-6 max-w-[52ch] text-[0.95rem] leading-[1.8] text-sage">
+                <p className="mt-6 max-w-[52ch] text-[0.95rem] leading-[1.8] text-taupe">
                   1:1 coaching starts with the intake form. Say where you are now, what you want, and what your week
                   actually looks like — the more honest the picture, the better the programming.
                 </p>
               </div>
 
               <div className="lg:pt-2">
-                <p className="max-w-[52ch] text-[0.95rem] leading-[1.8] text-sage">
+                <p className="max-w-[52ch] text-[0.95rem] leading-[1.8] text-taupe">
                   The form lives on Kahunas, the same place your programming, check-ins, and history will live once
                   you start. It opens in a new tab.
                 </p>
 
-                <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
+                <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
                   <a
                     href={KAHUNAS_INTAKE_URL}
                     target="_blank"
                     rel="noreferrer"
-                    className={`inline-flex items-center justify-center gap-3 bg-bone px-8 py-4 text-[0.72rem] uppercase tracking-[0.2em] text-charcoal transition-colors hover:bg-butter ${ringDark}`}
+                    className={btnSolidDark}
                   >
                     Open the intake form
                     <span aria-hidden="true">↗</span>
@@ -781,24 +720,26 @@ export default function Home({ theme, setTheme }) {
                     href={KAHUNAS_URL}
                     target="_blank"
                     rel="noreferrer"
-                    className={`inline-flex items-center justify-center gap-3 border border-bone/45 px-8 py-4 text-[0.72rem] uppercase tracking-[0.2em] text-bone transition-colors hover:border-bone hover:bg-bone/10 ${ringDark}`}
+                    className={btnOutlineDark}
                   >
                     See the packages
                     <span aria-hidden="true">↗</span>
                   </a>
                 </div>
 
-                <p className="mt-8 border-t border-bone/20 pt-6 text-[0.95rem] leading-[1.8] text-sage">
-                  Booking a class instead?{' '}
+                <div className="mt-8 border-t border-bone/20 pt-6">
+                  <p className="text-[0.95rem] leading-[1.8] text-taupe">Booking a class instead?</p>
+
                   <a
                     href={BOOTY_CLASS_URL}
                     target="_blank"
                     rel="noreferrer"
-                    className={`text-bone underline underline-offset-4 transition-colors hover:text-butter ${ringDark}`}
+                    className={`mt-4 ${btnOutlineDark}`}
                   >
-                    Book the booty class ↗
+                    Book the booty class
+                    <span aria-hidden="true">↗</span>
                   </a>
-                </p>
+                </div>
               </div>
             </div>
           </div>
@@ -816,14 +757,14 @@ export default function Home({ theme, setTheme }) {
           >
             <span>© {year} M1LLION</span>
             <div className="flex flex-wrap gap-6">
-              <a href="/terms" className={`transition-colors hover:text-olive ${focusRing}`}>
+              <a href="/terms" className={`transition-colors hover:text-stone ${focusRing}`}>
                 Terms
               </a>
               <a
                 href="https://www.instagram.com/m1llionfitness/"
                 target="_blank"
                 rel="noreferrer"
-                className={`transition-colors hover:text-olive ${focusRing}`}
+                className={`transition-colors hover:text-stone ${focusRing}`}
               >
                 Instagram
               </a>

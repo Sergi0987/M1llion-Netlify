@@ -1,11 +1,11 @@
 // A plate in the atlas: a running head carrying the plate reference and what it
 // depicts, a margin rail on wide screens, then the study itself.
 export default function Plate({ id, plate, caption, heading, isDark, children }) {
-  const ink = isDark ? 'text-bone' : 'text-charcoal';
-  const inkSoft = isDark ? 'text-sage' : 'text-olive';
-  const rule = isDark ? 'border-bone/25' : 'border-charcoal/20';
+  const ink = isDark ? 'text-bone' : 'text-obsidian';
+  const inkSoft = isDark ? 'text-taupe' : 'text-stone';
+  const rule = isDark ? 'border-bone/25' : 'border-obsidian/20';
 
-  // Multiply-blended grain disappears against charcoal, so the dark plate takes
+  // Multiply-blended grain disappears against obsidian, so the dark plate takes
   // the screen-blend variant instead.
   const grain = isDark ? 'm1-grain m1-grain-light' : 'm1-grain';
 

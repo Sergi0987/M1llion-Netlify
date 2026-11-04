@@ -4,7 +4,7 @@ export default function ThemeToggle({ theme, setTheme, variant = 'default' }) {
   const styles =
     variant === 'plate'
       ? `border px-3 py-1.5 text-[0.68rem] uppercase tracking-[0.2em] transition-colors ${
-          isDark ? 'border-bone/30 hover:border-bone' : 'border-charcoal/25 hover:border-charcoal'
+          isDark ? 'border-bone/30 hover:border-bone' : 'border-obsidian/25 hover:border-obsidian'
         }`
       : `rounded-xl border px-3 py-2 text-sm font-semibold transition ${
           isDark
