@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import ThemeToggle from '../components/ThemeToggle.jsx';
 import Plate from '../components/Plate.jsx';
-import PlateStudy from '../components/PlateStudy.jsx';
 
 // Focus has to clear 3:1 against whichever ground it lands on, so the ring is
 // picked per theme rather than shared.
@@ -17,25 +16,76 @@ const KAHUNAS_INTAKE_URL = 'https://kahunas.io/contact/person_info/2f00daa6-9b9c
 const CLASS_URL = 'https://m1llionfitness.setmore.com/';
 const BOOTY_CLASS_URL =
   'https://m1llionfitness.setmore.com/?instant_experiences_enabled=true&utm_source=ig&utm_medium=social&utm_content=link_in_bio&utm_id=97760_v0_s00_e0_tv3';
+// The programme and the events both sell through Carolina's Stan store.
+const STAN_STORE_URL = 'https://stan.store/m1llionfitness';
+// Placeholder until the Foundations page exists — for now both foundation
+// buttons drop the reader into the foundation section further down the page.
+const FOUNDATION_HREF = '#foundation';
 
 // No client portal yet on this site — training/portal launches later. Nav is
 // section anchors, plus the one booking link that has to stay reachable from
 // every screen. A third entry marks a link that leaves the site.
 const NAV = [
-  ['#coaching', 'Coaching'],
+  ['#connection', 'Made for More'],
+  ['#next-step', 'Next Step'],
+  ['#foundation', 'Foundation'],
   ['#coach', 'The Coach'],
   [BOOTY_CLASS_URL, 'Booty Class', true],
-  ['#instagram', 'Feed'],
   ['#inquire', 'Inquire'],
 ];
 
-// The legend for Plate II. Numbers key to the marginal ticks on the figure.
-const ONE_TO_ONE = [
-  ['Programming', 'Training built around your schedule, equipment, and history — not a template with your name on it.'],
-  ['Nutrition', 'Macros set against how you actually eat, reviewed as your training load changes.'],
-  ['Weekly check-in', 'Weight, notes, and progress photos logged in the portal. Read every week, answered every week.'],
-  ['Form review', 'Send video. Get correction on the lifts that carry the most risk and the most return.'],
-  ['The portal', 'Your program, history, and check-ins in one private login — not scattered across a chat thread.'],
+// Plate II opens by naming who the invitation is for, one line at a time.
+const MADE_FOR = [
+  'For those still writing their story.',
+  'For those who have come so far, yet know there’s more ahead.',
+  'For those building something greater than themselves.',
+  'For those navigating uncertainty or walking in success.',
+  'For anyone that is hungry for more.',
+];
+
+// Plate III — three ways in. One purpose, three starting points.
+const NEXT_STEP = [
+  {
+    index: '01',
+    kicker: 'Personalized growth',
+    title: 'Online coaching',
+    body: 'Individualized strength training, nutrition guidance, and accountability designed to fit your life and goals.',
+    cta: 'Apply for coaching',
+    href: KAHUNAS_INTAKE_URL,
+    src: '/editorial-01.jpg',
+    alt: 'Strength work under load',
+    wide: false,
+  },
+  {
+    index: '02',
+    kicker: 'Intentional growth',
+    title: 'Surrendered discipline',
+    body: 'A 30-day faith-rooted journey to strengthen discipline, practice surrender, and build intentional habits.',
+    cta: 'Explore the program',
+    href: STAN_STORE_URL,
+    src: '/C14.jpeg',
+    alt: 'A quiet moment away from the floor',
+    wide: false,
+  },
+  {
+    index: '03',
+    kicker: 'Collective growth',
+    title: 'Events & community',
+    body: 'Movement, connection, and meaningful experiences that bring people together beyond the screen.',
+    cta: 'Explore events',
+    href: STAN_STORE_URL,
+    src: '/group-class.jpg',
+    alt: 'A M1LLION group together after a session',
+    wide: true,
+  },
+];
+
+// Plate IV — the foundation, read as a short series of statements.
+const STEWARDSHIP = [
+  'Our bodies. Our minds. Our abilities. Our time. Our influence.',
+  'These are not things we simply possess. They are things we have been entrusted to steward.',
+  'Discipline is not punishment. It is the intentional decision to honor what we’ve been given.',
+  'Strength is not measured only by what we can lift, but by what we can carry, cultivate, and contribute.',
 ];
 
 const CLASSES = [
@@ -47,7 +97,7 @@ const CLASSES = [
 export default function Home({ theme, setTheme }) {
   const year = new Date().getFullYear();
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
-  const [heroSrc, setHeroSrc] = useState('/editorial-01.jpg');
+  const [heroSrc, setHeroSrc] = useState('/hero-collage.jpg');
   const [studySrc, setStudySrc] = useState('/editorial-02.jpg');
   const [feedArmed, setFeedArmed] = useState(() => typeof IntersectionObserver === 'undefined');
   const mobileNavRef = useRef(null);
@@ -169,7 +219,7 @@ export default function Home({ theme, setTheme }) {
 
           <nav
             aria-label="Primary"
-            className="hidden items-center gap-9 text-[0.68rem] uppercase tracking-[0.2em] md:flex"
+            className="hidden items-center gap-6 whitespace-nowrap text-[0.66rem] uppercase tracking-[0.18em] lg:flex"
           >
             {NAV.map(([href, label, external]) => (
               <a
@@ -189,7 +239,7 @@ export default function Home({ theme, setTheme }) {
           <button
             ref={mobileBtnRef}
             type="button"
-            className={`border px-3 py-1.5 text-[0.68rem] uppercase tracking-[0.2em] md:hidden ${rule} ${focusRing}`}
+            className={`border px-3 py-1.5 text-[0.68rem] uppercase tracking-[0.2em] lg:hidden ${rule} ${focusRing}`}
             aria-expanded={mobileNavOpen}
             aria-controls="mobile-nav"
             onClick={() => setMobileNavOpen((value) => !value)}
@@ -202,7 +252,7 @@ export default function Home({ theme, setTheme }) {
           id="mobile-nav"
           ref={mobileNavRef}
           aria-label="Mobile primary"
-          className={`border-t md:hidden ${rule} ${isDark ? 'bg-charcoal' : 'bg-bone'} ${
+          className={`border-t lg:hidden ${rule} ${isDark ? 'bg-charcoal' : 'bg-bone'} ${
             mobileNavOpen ? 'block' : 'hidden'
           }`}
         >
@@ -232,20 +282,18 @@ export default function Home({ theme, setTheme }) {
             Frontispiece
             --------------------------------------------------------------- */}
         <section id="top" className="relative isolate overflow-hidden bg-charcoal text-bone">
-          {/* Full-bleed and dimmed — the photograph is atmosphere here, not a
-              portrait. Anchored to the top so the head stays in frame on wide
-              screens, where a portrait image otherwise crops to a mid-body band. */}
+          {/* A contact sheet of the people, not one portrait. It is busy by
+              nature, so it sits well back behind a flat wash before the
+              gradient settles it into the page. */}
           <div className="absolute inset-0 z-0">
             <img
               src={heroSrc}
               onError={() => setHeroSrc('/C14.jpeg')}
-              alt="Carolina training"
-              className="m1-photo h-full w-full object-cover object-top opacity-80"
+              alt="Members of M1LLION together"
+              className="m1-photo h-full w-full object-cover object-center opacity-65"
             />
-            {/* Light at the top so the head reads, deepening to solid charcoal at
-                the baseline; the left wash is what carries the type. */}
-            <div className="absolute inset-0 bg-gradient-to-b from-charcoal/25 via-charcoal/45 to-charcoal" />
-            <div className="absolute inset-0 bg-gradient-to-r from-charcoal/90 via-charcoal/35 to-transparent" />
+            <div className="absolute inset-0 bg-charcoal/65" />
+            <div className="absolute inset-0 bg-gradient-to-b from-charcoal/55 via-charcoal/30 to-charcoal" />
           </div>
 
           <div className="m1-grain m1-grain-light relative z-10 mx-auto flex min-h-[max(34rem,88svh)] max-w-[86rem] flex-col justify-end px-5 pb-10 pt-16 sm:px-8 sm:pb-14 sm:pt-24">
@@ -259,48 +307,50 @@ export default function Home({ theme, setTheme }) {
               <span className="absolute right-0 h-px w-8 bg-bone/45" />
               <span className="absolute right-0 h-8 w-px bg-bone/45" />
             </div>
-            <div className="max-w-4xl py-14 sm:py-20">
-              <h1 className="font-display text-[clamp(2.6rem,9vw,6rem)] uppercase leading-[0.92] tracking-[-0.005em]">
-                Strength is
+            <div className="mx-auto max-w-4xl py-14 text-center sm:py-20">
+              <p className="text-[0.62rem] uppercase tracking-[0.42em] text-sage">M1LLION Fitness</p>
+
+              <h1 className="mt-6 font-display text-[clamp(2.6rem,9vw,6rem)] uppercase leading-[0.92] tracking-[-0.005em]">
+                From one
                 <br />
-                stewardship
+                to many
               </h1>
 
-              <p className="mt-7 max-w-[46ch] font-serif text-[clamp(1.25rem,2.5vw,1.75rem)] font-light italic leading-[1.45] text-sand">
-                Train the body. Renew the mind. Serve the King.
+              <p className="mx-auto mt-7 max-w-[46ch] font-serif text-[clamp(1.25rem,2.5vw,1.75rem)] font-light italic leading-[1.45] text-sand">
+                Train the Body. Renew the Mind. Multiply the Mission.
               </p>
 
-              <p className="mt-6 max-w-[62ch] text-[0.95rem] leading-[1.75] text-sage">
-                One-to-one online coaching and group classes with Carolina — programming, nutrition, and weekly
-                review delivered through a private client portal.
-              </p>
+              <div className="mx-auto mt-8 max-w-[46ch] border-t border-bone/20 pt-6">
+                <p className="font-serif text-[1.05rem] font-light italic leading-[1.6] text-sage">
+                  “…if it dies, it produces much fruit.”
+                </p>
+                <p className="mt-3 text-[0.62rem] uppercase tracking-[0.34em] text-butter">John 12:24</p>
+              </div>
 
-              <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
-                <a
-                  href={KAHUNAS_INTAKE_URL}
-                  target="_blank"
-                  rel="noreferrer"
-                  className={`inline-flex items-center justify-center gap-3 bg-bone px-8 py-4 text-[0.72rem] uppercase tracking-[0.2em] text-charcoal transition-colors hover:bg-butter ${ringDark}`}
-                >
-                  Apply for coaching
-                  <span aria-hidden="true">↗</span>
-                </a>
-
+              <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
                 <a
                   href={KAHUNAS_URL}
                   target="_blank"
                   rel="noreferrer"
+                  className={`inline-flex items-center justify-center gap-3 bg-bone px-8 py-4 text-[0.72rem] uppercase tracking-[0.2em] text-charcoal transition-colors hover:bg-butter ${ringDark}`}
+                >
+                  Commit to change
+                  <span aria-hidden="true">↗</span>
+                </a>
+
+                <a
+                  href={FOUNDATION_HREF}
                   className={`inline-flex items-center justify-center gap-3 border border-bone/45 px-8 py-4 text-[0.72rem] uppercase tracking-[0.2em] text-bone transition-colors hover:border-bone hover:bg-bone/10 ${ringDark}`}
                 >
-                  Sign up online
-                  <span aria-hidden="true">↗</span>
+                  Our foundation
+                  <span aria-hidden="true">→</span>
                 </a>
               </div>
             </div>
 
             <div className={`flex items-end justify-between gap-6 border-t border-bone/20 pt-4`}>
-              <p className="text-[0.62rem] uppercase tracking-[0.28em] text-sage">From one to many</p>
-              <p className="font-serif text-sm italic text-sand">Pl. I — Frontispiece</p>
+              <p className="text-[0.62rem] uppercase tracking-[0.28em] text-sage">Pl. I</p>
+              <p className="font-serif text-sm italic text-sand">The Mission</p>
             </div>
           </div>
         </section>
@@ -309,29 +359,124 @@ export default function Home({ theme, setTheme }) {
             Plate II — the study
             --------------------------------------------------------------- */}
         <Plate
-          id="coaching"
+          id="connection"
           plate="Pl. II"
-          caption="The study"
-          heading="What one-to-one actually includes"
+          caption="The connection"
+          heading="Made for more"
           isDark={isDark}
         >
-          <p className={`max-w-[66ch] font-serif text-[clamp(1.15rem,2vw,1.5rem)] font-light leading-[1.55] ${ink}`}>
-            Coaching is not a plan you are handed and left with. It is a structure you are held to, reviewed every
-            week, and corrected as your body and your week change.
+          <p className={`text-[0.62rem] uppercase tracking-[0.34em] ${inkSoft}`}>
+            Ephesians 1:4 &nbsp;|&nbsp; Romans 12:2
           </p>
 
-          <div className="mt-12">
-            <PlateStudy
-              src={studySrc}
-              onError={() => setStudySrc('/C14.jpeg')}
-              alt="Strength work in progress"
-              figure="Fig. 1 — 1:1 Online Coaching"
-              items={ONE_TO_ONE}
-              isDark={isDark}
-              ctaHref={KAHUNAS_INTAKE_URL}
-              ctaLabel="Apply for 1:1 coaching"
-              ctaExternal
-            />
+          <div className="mt-10 grid gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-14">
+            <figure className="relative flex flex-col">
+              <div className={`relative flex-1 overflow-hidden border ${rule}`}>
+                <img
+                  src={studySrc}
+                  onError={() => setStudySrc('/C14.jpeg')}
+                  alt="Strength work in progress"
+                  loading="lazy"
+                  className="m1-photo h-full w-full object-cover object-top"
+                />
+              </div>
+              <figcaption className={`mt-3 font-serif text-sm italic ${inkSoft}`}>
+                Fig. 1 — Made for more
+              </figcaption>
+            </figure>
+
+            <div className="flex flex-col">
+              <ul>
+                {MADE_FOR.map((line) => (
+                  <li
+                    key={line}
+                    className={`border-t py-3.5 font-serif text-[clamp(1.05rem,1.8vw,1.35rem)] font-light italic leading-[1.5] first:border-t-0 first:pt-0 ${ruleFaint} ${ink}`}
+                  >
+                    {line}
+                  </li>
+                ))}
+              </ul>
+
+              <p className={`mt-7 font-display text-[clamp(1.4rem,3vw,2rem)] uppercase leading-[1] ${ink}`}>
+                This is for you.
+              </p>
+
+              <p className={`mt-7 max-w-[58ch] text-[0.95rem] leading-[1.8] ${inkBody}`}>
+                Before the foundation of the world, God chose us in Christ. Our worth was never measured by works
+                or circumstances.
+              </p>
+
+              <p className={`mt-5 max-w-[58ch] text-[0.95rem] leading-[1.8] ${inkBody}`}>
+                You already know there’s more in you. More strength to build. More discipline to develop. More
+                purpose to walk in.
+              </p>
+
+              <p className={`mt-5 max-w-[58ch] text-[0.95rem] leading-[1.8] ${inkBody}`}>
+                Transformation requires more than motivation. It requires surrender, intentional action, and a
+                willingness to grow in what God has placed within you.
+              </p>
+
+              <p className={`mt-8 border-t pt-6 text-[0.72rem] uppercase leading-[2] tracking-[0.2em] ${rule} ${inkSoft}`}>
+                Train the Body. Renew the Mind. Multiply the Mission.
+              </p>
+            </div>
+          </div>
+        </Plate>
+
+        {/* ---------------------------------------------------------------
+            Plate III — the invitation
+            --------------------------------------------------------------- */}
+        <Plate
+          id="next-step"
+          plate="Pl. III"
+          caption="The invitation"
+          heading="Take the next step"
+          isDark={isDark}
+        >
+          <p className={`max-w-[66ch] font-display text-[clamp(1.3rem,2.6vw,1.9rem)] uppercase leading-[1.1] ${ink}`}>
+            Different paths. One purpose.
+          </p>
+
+          <p className={`mt-6 max-w-[66ch] text-[0.95rem] leading-[1.8] ${inkBody}`}>
+            Not everyone needs the same starting point. Some need personalized guidance, others need a season of
+            intentional discipline, and others simply need a community to grow alongside.
+          </p>
+
+          <div className="mt-12 grid gap-8 sm:grid-cols-2">
+            {NEXT_STEP.map((step) => (
+              <article key={step.index} className={step.wide ? 'sm:col-span-2' : undefined}>
+                <div className={`overflow-hidden border ${rule}`}>
+                  <img
+                    src={step.src}
+                    alt={step.alt}
+                    loading="lazy"
+                    className={`m1-photo w-full object-cover object-center ${
+                      step.wide ? 'aspect-[16/7]' : 'aspect-[4/3]'
+                    }`}
+                  />
+                </div>
+
+                <p className={`mt-4 text-[0.62rem] uppercase tracking-[0.28em] ${inkSoft}`}>
+                  {step.index} / {step.kicker}
+                </p>
+
+                <h3 className={`mt-2 font-display text-[clamp(1.3rem,2.6vw,1.8rem)] uppercase leading-[1] ${ink}`}>
+                  {step.title}
+                </h3>
+
+                <p className={`mt-3 max-w-[54ch] text-[0.95rem] leading-[1.75] ${inkBody}`}>{step.body}</p>
+
+                <a
+                  href={step.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={`mt-4 inline-flex items-center gap-2 text-[0.7rem] uppercase tracking-[0.2em] underline underline-offset-4 transition-colors hover:text-olive ${ink} ${focusRing}`}
+                >
+                  {step.cta}
+                  <span aria-hidden="true">↗</span>
+                </a>
+              </article>
+            ))}
           </div>
 
           <div className={`mt-16 border-t pt-10 ${rule}`}>
@@ -398,38 +543,68 @@ export default function Home({ theme, setTheme }) {
         </Plate>
 
         {/* ---------------------------------------------------------------
-            Commentary
+            Pl. IV — the foundation
             --------------------------------------------------------------- */}
-        <section className="relative isolate overflow-hidden bg-forest text-bone">
-          <div className="m1-grain m1-grain-light relative mx-auto max-w-[86rem] px-5 py-20 sm:px-8 sm:py-28">
-            <div className="max-w-[54rem]">
-              <p className="font-serif text-[clamp(1.9rem,5vw,3.5rem)] font-light leading-[1.25]">
-                The body matters. The soul matters more.{' '}
-                <span className="text-butter">The order matters.</span>
-              </p>
+        <section id="foundation" className="relative isolate scroll-mt-16 overflow-hidden bg-forest text-bone">
+          <div className="m1-grain m1-grain-light relative mx-auto max-w-[86rem] px-5 sm:px-8">
+            <div className="flex items-baseline justify-between gap-6 border-b border-bone/25 py-4 text-[0.62rem] uppercase tracking-[0.28em] text-sage">
+              <span>Pl. IV</span>
+              <span>The foundation</span>
+            </div>
 
-              <div className="mt-10 grid gap-8 border-t border-bone/25 pt-8 sm:grid-cols-2">
-                <p className="max-w-[46ch] text-[0.95rem] leading-[1.8] text-sage">
-                  Discipline here is not punishment and training is not vanity. The body is on loan, it is worth
-                  keeping well, and the work of keeping it well is worth doing carefully.
+            <div className="py-20 sm:py-28">
+              <div className="max-w-[54rem]">
+                <h2 className="font-display text-[clamp(2rem,5.5vw,3.75rem)] uppercase leading-[0.96]">
+                  Strength is stewardship
+                </h2>
+
+                <p className="mt-7 max-w-[52ch] font-serif text-[clamp(1.25rem,2.5vw,1.75rem)] font-light italic leading-[1.4] text-sand">
+                  What God has entrusted to us was never meant to be neglected.
                 </p>
-                <p className="max-w-[46ch] text-[0.95rem] leading-[1.8] text-sage">
-                  That is the whole reason for the structure: programming that respects your limits, review that
-                  keeps you honest, and progress measured over seasons rather than weeks.
+
+                <div className="mt-10 border-t border-bone/25 pt-8">
+                  {STEWARDSHIP.map((line) => (
+                    <p key={line} className="mt-5 max-w-[60ch] text-[0.95rem] leading-[1.8] text-sage first:mt-0">
+                      {line}
+                    </p>
+                  ))}
+
+                  <p className="mt-8 max-w-[60ch] text-[1.05rem] leading-[1.75] text-bone">
+                    Because transformation isn’t just about becoming more. It’s about becoming faithful with what
+                    is already in our hands.
+                  </p>
+                </div>
+
+                <p className="mt-10 text-[0.62rem] uppercase tracking-[0.34em] text-butter">
+                  Work. Worship. Witness.
+                </p>
+                <p className="mt-3 text-[0.62rem] uppercase tracking-[0.28em] text-sage">
+                  Romans 12:1–2 &nbsp;/&nbsp; 1 Peter 4:10
                 </p>
               </div>
 
-              <p className="mt-10 text-[0.62rem] uppercase tracking-[0.34em] text-butter">
-                Work. Worship. Witness.
-              </p>
+              <div className="mt-12 max-w-[54rem] border-t border-bone/25 pt-8">
+                <p className="text-[0.72rem] uppercase tracking-[0.2em] text-bone">Go deeper.</p>
+                <p className="mt-3 max-w-[58ch] text-[0.95rem] leading-[1.8] text-sage">
+                  Explore the M1LLION Foundations — the principles behind how we train, think, and steward what
+                  we’ve been given.
+                </p>
+
+                {/* The Foundations page does not exist yet. Marked honestly rather
+                    than linked back to this same section; swap in the real href
+                    once the page lands. */}
+                <p className="mt-6 inline-flex border border-bone/25 px-6 py-3 text-[0.68rem] uppercase tracking-[0.2em] text-sage">
+                  The Foundations page is in preparation
+                </p>
+              </div>
             </div>
           </div>
         </section>
 
         {/* ---------------------------------------------------------------
-            Plate III — the coach
+            Pl. V — the person
             --------------------------------------------------------------- */}
-        <Plate id="coach" plate="Pl. III" caption="The coach" heading="Carolina" isDark={isDark}>
+        <Plate id="coach" plate="Pl. V" caption="The person" heading="Meet the coach" isDark={isDark}>
           <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-16">
             <figure className="relative">
               <div className={`relative overflow-hidden border ${rule}`}>
@@ -498,7 +673,7 @@ export default function Home({ theme, setTheme }) {
         {/* ---------------------------------------------------------------
             Feed + apparel note
             --------------------------------------------------------------- */}
-        <Plate id="instagram" plate="Pl. IV" caption="The feed" heading="From the floor" isDark={isDark}>
+        <Plate id="instagram" plate="Pl. VI" caption="The feed" heading="From the floor" isDark={isDark}>
           <div ref={feedRef} className={`min-h-[20rem] overflow-hidden border ${rule}`}>
             {feedArmed ? (
               <div className="elfsight-app-17c86385-c4ee-440f-bab3-a003bbe60d01" />
@@ -525,7 +700,7 @@ export default function Home({ theme, setTheme }) {
         {/* ---------------------------------------------------------------
             Pl. V — apparel, honestly marked as unfinished
             --------------------------------------------------------------- */}
-        <Plate id="apparel" plate="Pl. V" caption="In preparation" heading="Apparel" isDark={isDark}>
+        <Plate id="apparel" plate="Pl. VII" caption="In preparation" heading="Apparel" isDark={isDark}>
           <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-16">
             <p className={`max-w-[52ch] font-serif text-[clamp(1.15rem,2vw,1.5rem)] font-light leading-[1.55] ${ink}`}>
               Wear with purpose.
@@ -556,7 +731,7 @@ export default function Home({ theme, setTheme }) {
         <section id="inquire" className="relative isolate overflow-hidden bg-charcoal text-bone">
           <div className="m1-grain m1-grain-light relative mx-auto max-w-[86rem] px-5 sm:px-8">
             <div className="flex items-baseline justify-between gap-6 border-b border-bone/25 py-4 text-[0.62rem] uppercase tracking-[0.28em] text-sage">
-              <span>Pl. VI</span>
+              <span>Pl. VIII</span>
               <span>Inquire</span>
             </div>
 
