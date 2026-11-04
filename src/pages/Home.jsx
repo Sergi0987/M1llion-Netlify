@@ -74,8 +74,10 @@ const NEXT_STEP = [
     body: 'Movement, connection, and meaningful experiences that bring people together beyond the screen.',
     cta: 'Explore events',
     href: STAN_STORE_URL,
-    src: '/group-class.jpg',
-    alt: 'A M1LLION group together after a session',
+    // Temporary stock photograph (Unsplash licence) so this card does not repeat
+    // the group picture used in the classes block. Swap for a real event photo.
+    src: '/community-placeholder.jpg',
+    alt: 'A group class working through a set together',
     wide: true,
   },
 ];
