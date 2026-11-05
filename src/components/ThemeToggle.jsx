@@ -8,8 +8,8 @@ export default function ThemeToggle({ theme, setTheme, variant = 'default' }) {
         }`
       : `rounded-xl border px-3 py-2 text-sm font-semibold transition ${
           isDark
-            ? 'border-white/20 bg-white/10 text-white hover:bg-white/15'
-            : 'border-slate-300 bg-white text-slate-950 hover:bg-slate-100'
+            ? 'border-bone/20 bg-bone/10 text-bone hover:bg-bone/15'
+            : 'border-obsidian/20 bg-bone text-obsidian hover:bg-taupe/30'
         }`;
 
   return (

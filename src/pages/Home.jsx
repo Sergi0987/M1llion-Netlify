@@ -601,6 +601,11 @@ export default function Home({ theme, setTheme }) {
                 </p>
 
                 <p className={`mt-3 font-serif text-lg italic ${inkSoft}`}>From one to many.</p>
+
+                <a href="/my-story" className={`mt-7 ${btnOutline}`}>
+                  Read my story
+                  <span aria-hidden="true">→</span>
+                </a>
               </div>
 
               <dl className={`mt-9 border-t ${rule}`}>

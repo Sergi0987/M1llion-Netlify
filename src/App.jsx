@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Home from './pages/Home.jsx';
+import Story from './pages/Story.jsx';
 
 export default function App() {
   const [theme, setTheme] = useState(() => localStorage.getItem('m1_theme') || 'dark');
@@ -34,6 +35,7 @@ export default function App() {
   return (
     <Routes>
       <Route path="/" element={<Home theme={theme} setTheme={setTheme} />} />
+      <Route path="/my-story" element={<Story theme={theme} setTheme={setTheme} />} />
     </Routes>
   );
 }
