@@ -17,6 +17,8 @@ const BOOTY_CLASS_URL =
   'https://m1llionfitness.setmore.com/?instant_experiences_enabled=true&utm_source=ig&utm_medium=social&utm_content=link_in_bio&utm_id=97760_v0_s00_e0_tv3';
 // The programme and the events both sell through Carolina's Stan store.
 const STAN_STORE_URL = 'https://stan.store/m1llionfitness';
+const SURRENDERED_DISCIPLINE_URL =
+  'https://stan.store/m1llionfitness/p/free--surrendered-discipline-30day-guide';
 // Placeholder until the Foundations page exists — for now both foundation
 // buttons drop the reader into the foundation section further down the page.
 const FOUNDATION_HREF = '#foundation';
@@ -61,7 +63,7 @@ const NEXT_STEP = [
     title: 'Surrendered discipline',
     body: 'A 30-day faith-rooted journey to strengthen discipline, practice surrender, and build intentional habits.',
     cta: 'Explore the program',
-    href: STAN_STORE_URL,
+    href: SURRENDERED_DISCIPLINE_URL,
     src: '/C14.jpeg',
     alt: 'A quiet moment away from the floor',
     wide: false,
@@ -681,7 +683,7 @@ export default function Home({ theme, setTheme }) {
         {/* ---------------------------------------------------------------
             Inquire
             --------------------------------------------------------------- */}
-        <section id="inquire" className="relative isolate overflow-hidden bg-obsidian text-bone">
+        <section id="inquire" className="relative isolate scroll-mt-16 overflow-hidden bg-obsidian text-bone">
           <div className="m1-grain m1-grain-light relative mx-auto max-w-[86rem] px-5 sm:px-8">
             <div className="flex items-baseline justify-between gap-6 border-b border-bone/25 py-4 text-[0.62rem] uppercase tracking-[0.28em] text-taupe">
               <span>Pl. VIII</span>
@@ -696,52 +698,60 @@ export default function Home({ theme, setTheme }) {
                   conversation
                 </h2>
                 <p className="mt-6 max-w-[48ch] font-serif text-xl font-light italic leading-[1.5] text-taupe">
-                  Tell Carolina what you are training for.
+                  Your next step starts here.
                 </p>
                 <p className="mt-6 max-w-[52ch] text-[0.95rem] leading-[1.8] text-taupe">
-                  1:1 coaching starts with the intake form. Say where you are now, what you want, and what your week
-                  actually looks like — the more honest the picture, the better the programming.
+                  Whether you’re ready for coaching, exploring your options, or simply have questions, there’s a
+                  place for you at M1LLION.
                 </p>
               </div>
 
+              {/* Three ways in, in the order someone actually arrives: a question,
+                  a decision, or a room to be part of. */}
               <div className="lg:pt-2">
-                <p className="max-w-[52ch] text-[0.95rem] leading-[1.8] text-taupe">
-                  The form lives on Kahunas, the same place your programming, check-ins, and history will live once
-                  you start. It opens in a new tab.
-                </p>
+                <div>
+                  <p className="text-[0.72rem] uppercase tracking-[0.2em] text-bone">
+                    Have questions before committing?
+                  </p>
+                  <p className="mt-3 max-w-[52ch] text-[0.95rem] leading-[1.8] text-taupe">
+                    Start with a free consultation to discuss your goals and explore personalized coaching.
+                  </p>
 
-                <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
                   <a
                     href={KAHUNAS_INTAKE_URL}
                     target="_blank"
                     rel="noreferrer"
-                    className={btnSolidDark}
+                    className={`mt-5 w-full ${btnOutlineDark}`}
                   >
-                    Open the intake form
+                    Request a consultation
                     <span aria-hidden="true">↗</span>
                   </a>
+                </div>
+
+                <div className="mt-10 border-t border-bone/20 pt-8">
+                  <p className="text-[0.72rem] uppercase tracking-[0.2em] text-bone">Ready to get started?</p>
 
                   <a
                     href={KAHUNAS_URL}
                     target="_blank"
                     rel="noreferrer"
-                    className={btnOutlineDark}
+                    className={`mt-5 w-full ${btnSolidDark}`}
                   >
-                    See the packages
+                    Explore training options
                     <span aria-hidden="true">↗</span>
                   </a>
                 </div>
 
-                <div className="mt-8 border-t border-bone/20 pt-6">
-                  <p className="text-[0.95rem] leading-[1.8] text-taupe">Booking a class instead?</p>
+                <div className="mt-10 border-t border-bone/20 pt-8">
+                  <p className="text-[0.95rem] leading-[1.8] text-taupe">Looking for community?</p>
 
                   <a
-                    href={BOOTY_CLASS_URL}
+                    href={STAN_STORE_URL}
                     target="_blank"
                     rel="noreferrer"
-                    className={`mt-4 ${btnOutlineDark}`}
+                    className={`mt-4 w-full ${btnOutlineDark}`}
                   >
-                    Book the booty class
+                    Explore events
                     <span aria-hidden="true">↗</span>
                   </a>
                 </div>
