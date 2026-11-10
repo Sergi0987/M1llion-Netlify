@@ -13,15 +13,13 @@ const ringDark =
 // Kahunas, intake is answered on Kahunas, and classes are booked on Setmore.
 const KAHUNAS_URL = 'https://kahunas.io/coach/packages/list/a13e6be5-d737-47e0-b37e-8e8efbcf2c4c';
 const KAHUNAS_INTAKE_URL = 'https://kahunas.io/contact/person_info/2f00daa6-9b9c-4981-a866-37e60fa49b7f';
-const BOOTY_CLASS_URL =
+const GLUTE_CLASS_URL =
   'https://m1llionfitness.setmore.com/?instant_experiences_enabled=true&utm_source=ig&utm_medium=social&utm_content=link_in_bio&utm_id=97760_v0_s00_e0_tv3';
 // The programme and the events both sell through Carolina's Stan store.
 const STAN_STORE_URL = 'https://stan.store/m1llionfitness';
 const SURRENDERED_DISCIPLINE_URL =
   'https://stan.store/m1llionfitness/p/free--surrendered-discipline-30day-guide';
-// Placeholder until the Foundations page exists — for now both foundation
-// buttons drop the reader into the foundation section further down the page.
-const FOUNDATION_HREF = '#foundation';
+const FOUNDATION_HREF = '/foundations';
 
 // No client portal yet on this site — training/portal launches later. Nav is
 // section anchors, plus the one booking link that has to stay reachable from
@@ -31,7 +29,7 @@ const NAV = [
   ['#next-step', 'Next Step'],
   ['#foundation', 'Foundation'],
   ['#coach', 'The Coach'],
-  [BOOTY_CLASS_URL, 'Booty Class', true],
+  [GLUTE_CLASS_URL, 'Glute Class', true],
   ['#inquire', 'Inquire'],
 ];
 
@@ -540,12 +538,10 @@ export default function Home({ theme, setTheme }) {
                     we’ve been given.
                   </p>
 
-                  {/* The Foundations page does not exist yet. Marked honestly rather
-                      than linked back to this same section; swap in the real href
-                      once the page lands. */}
-                  <p className="mt-6 inline-flex border border-bone/25 px-6 py-3 text-[0.68rem] uppercase tracking-[0.2em] text-taupe">
-                    The Foundations page is in preparation
-                  </p>
+                  <a href={FOUNDATION_HREF} className={`mt-6 ${btnOutlineDark}`}>
+                    Explore the foundations
+                    <span aria-hidden="true">→</span>
+                  </a>
                 </div>
               </div>
             </div>
