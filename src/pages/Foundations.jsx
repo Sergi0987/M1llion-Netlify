@@ -1,38 +1,33 @@
 import { useEffect } from 'react';
 import ThemeToggle from '../components/ThemeToggle.jsx';
 
-// The manual, set as an edition: the scriptures it stands on, then the sections
-// in the order they are argued, with single lines held on their own ground.
-const SCRIPTURE = [
-  {
-    quote:
-      'Unless a grain of wheat falls into the earth and dies, it remains alone; but if it dies, it bears much fruit.',
-    ref: 'John 12:24',
-    body: 'The way of lasting impact is not self-preservation, but surrender — dying to what is comfortable so that greater fruit can come for the glory of God.',
-  },
-  {
-    quote:
-      'And what you have heard from me in the presence of many witnesses, entrust to faithful people who will be able to teach others also.',
-    ref: '2 Timothy 2:2',
-    body: 'This is a generational mission — receive, live, and pass on the truth, from one to many, equipping a multiplying people.',
-  },
-  {
-    quote:
-      'Do not be conformed to this world, but be transformed by the renewal of your mind, that by testing you may discern what is the will of God, what is good and acceptable and perfect.',
-    ref: 'Romans 12:2',
-    body: 'Our foundation is transformation, not conformity — shaped by God’s truth, not the world’s patterns, so we can build, lead, and create with eternal purpose.',
-  },
-  {
-    quote:
-      'For he chose us in him before the foundation of the world, that we should be holy and blameless before him.',
-    ref: 'Ephesians 1:4',
-    body: 'M1LLION is not a random idea, but a purposeful assignment — we are part of God’s plan from the foundation, chosen to represent Him in all we do.',
-  },
-  {
-    quote: 'As each has received a gift, use it to serve one another, as good stewards of God’s varied grace.',
-    ref: '1 Peter 4:10',
-    body: 'We believe in stewardship — utilizing the gifts, resources, influence, and opportunities God has given us to serve people, strengthen the body, and advance His Kingdom.',
-  },
+// The manual is set the way the printed edition is set: a divider leaf carrying
+// a plate and a title, then the leaf of argument that follows it, with the
+// running head and the foot rule repeating on every page.
+const SCRIPTURE_TOP = [
+  [
+    'Jesus said, “Unless a grain of wheat falls into the earth and dies, it remains alone; but if it dies, it bears much fruit.” (John 12:24)',
+    'The way of lasting impact is not self-preservation, but surrender — dying to what is comfortable so that greater fruit can come for the glory of God.',
+  ],
+  [
+    'And what you have heard from me in the presence of many witnesses, entrust to faithful people who will be able to teach others also. (2 Timothy 2:2)',
+    'This is a generational mission — receive, live, and pass on the truth, from one to many, equipping a multiplying people.',
+  ],
+  [
+    'Do not be conformed to this world, but be transformed by the renewal of your mind, that by testing you may discern what is the will of God, what is good and acceptable and perfect. (Romans 12:2)',
+    'Our foundation is transformation, not conformity — shaped by God’s truth, not the world’s patterns, so we can build, lead, and create with eternal purpose.',
+  ],
+];
+
+const SCRIPTURE_FOOT = [
+  [
+    'For he chose us in him before the foundation of the world, that we should be holy and blameless before him. (Ephesians 1:4)',
+    'M1LLION is not a random idea, but a purposeful assignment — we are part of God’s plan from the foundation, chosen to represent Him in all we do.',
+  ],
+  [
+    'As each has received a gift, use it to serve one another, as good stewards of God’s varied grace. (1 Peter 4:10)',
+    'We believe in stewardship — utilizing the gifts, resources, influence, and opportunities God has given us to serve people, strengthen the body, and advance His Kingdom.',
+  ],
 ];
 
 const JOURNEY = [
@@ -51,11 +46,11 @@ const HOPES = [
   'And what I learned, I was able to pass on to someone else.',
 ];
 
-const SECTIONS = [
+const LEAVES = [
   {
-    kind: 'section',
-    n: '01',
-    rail: 'Welcome',
+    kind: 'content',
+    folio: '02',
+    foot: 'Welcome to M1LLION',
     title: 'You belong here.',
     paras: [
       'Whether you share my faith, are curious about it, or don’t identify as a Christian at all, you are genuinely welcome here.',
@@ -65,19 +60,23 @@ const SECTIONS = [
     ],
     close: 'Knowledge to carry. Strength to build. Purpose to pursue.',
   },
+  { kind: 'divider', folio: '03', foot: 'M1LLION Foundations', title: 'A letter before we begin.', plate: '/foundations/letter.jpg', focal: '50% 30%' },
   {
-    kind: 'section',
-    n: '02',
-    rail: 'The letter',
-    title: 'A letter before we begin.',
+    kind: 'content',
+    folio: '04',
+    foot: 'The letter',
     paras: [
       'Before M1LLION became what it is today, I found myself questioning whether I even wanted to continue in fitness.',
       'What started as something I loved had become a career. And when the opportunities I once relied on began slowing down, I had to confront something I hadn’t considered before.',
-      'Was this truly what I wanted to do, or simply the only thing I knew how to do?',
+    ],
+    aside: 'Was this truly what I wanted to do, or simply the only thing I knew how to do?',
+    more: [
       'Around that same time, my journey with Christ began challenging the way I understood my identity, purpose, and responsibility.',
       'I began realizing that fitness was never meant to be my destination. It was one of the environments where I’d been learning discipline, stewardship, and the importance of understanding what we do and why it matters.',
       'What I once viewed primarily as a career, I began seeing as a resource that could serve a much greater purpose.',
-      'M1LLION is still growing, and so am I.',
+    ],
+    close: 'M1LLION is still growing, and so am I.',
+    tail: [
       'But the foundation remains the same: to faithfully steward what God has entrusted to us, equip others with knowledge and opportunities, and allow what begins in one life to reach many.',
       'This manual exists to establish and protect that foundation. If M1LLION ever loses that, then it has lost everything that matters.',
     ],
@@ -86,36 +85,42 @@ const SECTIONS = [
   },
   {
     kind: 'statement',
-    text: 'Fitness was never the destination.',
+    folio: '05',
+    foot: 'From one to many',
+    title: 'Fitness was never the destination.',
     sub: 'It was one of the places where I learned to practice stewardship.',
   },
+  { kind: 'divider', folio: '06', foot: 'M1LLION Foundations', title: 'Why M1LLION exists.', plate: '/foundations/mission.jpg', focal: '50% 58%' },
   {
-    kind: 'section',
-    n: '03',
-    rail: 'The mission',
-    title: 'Why M1LLION exists.',
-    lead: 'M1LLION exists to equip people with the knowledge, resources, community, and opportunities to recognize their potential, renew their minds, and faithfully steward what God has entrusted to them.',
+    kind: 'content',
+    folio: '07',
+    foot: 'The mission',
     paras: [
+      'M1LLION exists to equip people with the knowledge, resources, community, and opportunities to recognize their potential, renew their minds, and faithfully steward what God has entrusted to them.',
       'We believe transformation is not limited to physical results, personal achievements, or a single season of life.',
-      'Fitness was our starting point, but it was never meant to be our limitation.',
+    ],
+    aside: 'Fitness was our starting point, but it was never meant to be our limitation.',
+    more: [
       'Through education, discipline, meaningful connections, and intentional action, our mission is to help people develop the understanding and confidence to continue growing independently.',
       'Because what we receive should never have to end with us.',
       'As we grow, we become equipped to serve, lead, and pass forward the knowledge, wisdom, and opportunities we’ve been given.',
     ],
-    close: 'From one to many.',
+    stamp: 'From one to many.',
     refs: 'John 12:24 | 2 Timothy 2:2',
   },
   {
-    kind: 'statement',
+    kind: 'quiet',
+    folio: '08',
+    foot: 'From one to many',
     text: 'Steward what God has entrusted to you, so others may discover what He has entrusted to them.',
   },
+  { kind: 'divider', folio: '09', foot: 'M1LLION Foundations', title: 'The heart behind M1LLION.', plate: '/foundations/heart.jpg', focal: '50% 45%' },
   {
-    kind: 'section',
-    n: '04',
-    rail: 'The heart',
-    title: 'The heart behind M1LLION.',
-    lead: 'Everyone carries a story.',
-    paras: [
+    kind: 'content',
+    folio: '10',
+    foot: 'The heart',
+    aside: 'Everyone carries a story.',
+    more: [
       'Some are searching for direction. Others have already accomplished more than they once imagined. Some are rebuilding. Others are growing, leading, and creating opportunities for those around them.',
       'Different journeys. Different seasons. Different starting points.',
       'But one thing remains true. No matter how far we’ve come, there is always more to learn, more to steward, and more we can contribute.',
@@ -123,13 +128,15 @@ const SECTIONS = [
   },
   {
     kind: 'statement',
-    text: 'Potential alone does not produce transformation.',
+    folio: '11',
+    foot: 'The heart',
+    title: 'Potential alone does not produce transformation.',
     sub: 'Whether we’re overcoming limitations or learning to steward greater opportunities, growth requires understanding, intentional decisions, and consistent action.',
   },
   {
-    kind: 'section',
-    n: '05',
-    rail: 'The heart',
+    kind: 'content',
+    folio: '12',
+    foot: 'The heart',
     title: 'The heart behind the mission.',
     paras: [
       'We believe people deserve more than temporary solutions.',
@@ -139,32 +146,49 @@ const SECTIONS = [
       'Because M1LLION was never meant to be a place where growth ends with the individual.',
       'It’s a place where what we learn can become a resource for someone else.',
     ],
-    close: 'From one to many.',
+    stamp: 'From one to many.',
   },
-  { kind: 'prayer' },
-  { kind: 'hopes' },
   {
-    kind: 'section',
-    n: '07',
-    rail: 'The problem',
+    kind: 'divider',
+    folio: '13',
+    foot: 'Prayer',
+    title: 'Prayer.',
+    sub: 'For everyone who encounters M1LLION.',
+    plate: '/foundations/prayer.jpg', focal: '50% 45%',
+  },
+  { kind: 'prayer', folio: '14', foot: 'Prayer' },
+  { kind: 'divider', folio: '15', foot: 'M1LLION Foundations', title: 'What we hope people say.', plate: '/foundations/impact.jpg', focal: '50% 35%' },
+  { kind: 'hopes', folio: '16', foot: 'The impact' },
+  {
+    kind: 'divider',
+    folio: '17',
+    foot: 'M1LLION Foundations',
     title: 'The problem M1LLION exists to solve.',
+    plate: '/foundations/problem.jpg', focal: '50% 40%',
+  },
+  {
+    kind: 'content',
+    folio: '18',
+    foot: 'From one to many',
     paras: [
       'We live in a world that often teaches us to measure our worth by what we achieve, possess, or how others perceive us.',
       'Appearance. Wealth. Relationships. Recognition. Performance.',
       'None of these things are inherently wrong. But when they become the foundation of our identity, our sense of worth becomes dependent on things that can change.',
       'And even when we recognize our potential, we may lack the knowledge, direction, or understanding to develop it.',
-      'Potential without understanding can remain potential for a lifetime.',
+    ],
+    aside: 'Potential without understanding can remain potential for a lifetime.',
+    more: [
       'M1LLION exists to help bridge that gap.',
       'To point people toward an identity rooted in Christ, equip them with practical knowledge and resources, and encourage faithful stewardship of what they’ve been given.',
       'Because transformation is not simply about achieving more. It’s about understanding who we are, what we’ve been entrusted with, and what we’re responsible for doing with it.',
     ],
     refs: 'Romans 12:2 | Ephesians 2:10',
   },
+  { kind: 'divider', folio: '19', foot: 'M1LLION Foundations', title: 'Definition of success.', plate: '/foundations/success.jpg', focal: '50% 40%' },
   {
-    kind: 'section',
-    n: '08',
-    rail: 'Success',
-    title: 'Definition of success.',
+    kind: 'content',
+    folio: '20',
+    foot: 'From one to many',
     paras: [
       'We believe success is more than what can be measured on paper.',
       'Revenue. Recognition. Growth. Achievements.',
@@ -172,14 +196,31 @@ const SECTIONS = [
       'But they are not the ultimate measure of our purpose.',
       'At M1LLION, success is also measured by what continues beyond us. The knowledge someone applies years later. The confidence developed through understanding. The opportunities created for others. The discipline carried into everyday life. The wisdom passed from one person to another.',
     ],
-    close: 'We do not measure success only by what we build, but by what others become equipped to build because of it.',
-    tail: 'Our responsibility is to remain faithful with what we’ve been entrusted with, whether the impact reaches one person or one million.',
+    aside: 'We do not measure success only by what we build, but by what others become equipped to build because of it.',
+    more: [
+      'Our responsibility is to remain faithful with what we’ve been entrusted with, whether the impact reaches one person or one million.',
+    ],
   },
-  { kind: 'journey' },
+  { kind: 'divider', folio: '21', foot: 'M1LLION Foundations', title: 'The journey of M1LLION.', plate: '/foundations/journey.jpg', focal: '50% 60%' },
   {
-    kind: 'section',
-    n: '10',
-    rail: 'The difference',
+    kind: 'content',
+    folio: '22',
+    foot: 'The journey',
+    paras: [
+      'Every person begins from a different place.',
+      'Some are searching for direction. Some are rebuilding after difficult seasons. Some are pursuing new goals.',
+      'Others have already achieved tremendous success and recognize there is still more to learn, develop, and contribute.',
+      'Different starting points. One continuous opportunity for growth.',
+      'At M1LLION, we believe transformation is a lifelong process shaped by four foundational principles.',
+    ],
+    aside: 'Because what begins in one life was never meant to end there.',
+  },
+  { kind: 'journey', folio: '23', foot: 'The journey' },
+  { kind: 'divider', folio: '24', foot: 'M1LLION Foundations', title: 'M1LLION is different.', plate: '/foundations/difference.jpg', focal: '50% 50%' },
+  {
+    kind: 'content',
+    folio: '25',
+    foot: 'The difference',
     title: 'More than what we build.',
     paras: [
       'M1LLION was never intended to be defined by a single service, program, product, or industry. Fitness was where it began, but the mission has always been greater than physical transformation.',
@@ -189,46 +230,32 @@ const SECTIONS = [
       'We don’t exist simply to help people achieve more. We exist to encourage faithful stewardship of what they’ve already been given.',
       'Because the greatest impact isn’t always what happens while someone is with us.',
     ],
-    close: 'It’s what continues after.',
+    aside: 'It’s what continues after.',
   },
 ];
 
-// Every numbered section shares one shell: a running head, a margin rail on
-// wide screens, then the argument at a fixed reading measure.
-function Shell({ n, rail, title, rule, ink, inkSoft, children }) {
+const ringDark =
+  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-taupe focus-visible:ring-offset-obsidian';
+const ringLight =
+  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-obsidian focus-visible:ring-offset-bone';
+
+// The running head and the foot rule that repeat on every leaf of the edition.
+function Leaf({ folio, foot, dark, mark, rule, inkSoft, className = '', children }) {
   return (
-    <section id={n ? `s-${n}` : undefined} className="relative isolate scroll-mt-16">
-      <div className="m1-grain relative mx-auto max-w-[86rem] px-5 sm:px-8">
-        <div
-          className={`flex items-baseline justify-between gap-6 border-b py-4 text-[0.62rem] uppercase tracking-[0.28em] ${rule} ${inkSoft}`}
-        >
-          <span>{n ? `§ ${n}` : 'M1LLION'}</span>
-          <span>{rail}</span>
-        </div>
+    <section className={`relative isolate scroll-mt-16 ${className}`}>
+      <div className={`${dark ? 'm1-grain m1-grain-light' : 'm1-grain'} relative mx-auto flex min-h-[32rem] max-w-[86rem] flex-col px-5 sm:px-8`}>
+        <p className={`pt-5 text-[0.58rem] uppercase tracking-[0.28em] ${inkSoft}`}>M1LLION Foundations / {folio}</p>
 
-        <div className="grid gap-8 py-16 sm:py-24 lg:grid-cols-[7rem_minmax(0,1fr)] lg:gap-0">
-          <div className="hidden lg:block">
-            <div className={`sticky top-28 border-l pl-4 ${rule}`}>
-              <p className={`font-serif text-2xl italic leading-none ${inkSoft}`}>{n || '\u2014'}</p>
-            </div>
-          </div>
+        <div className="flex-1 py-14 sm:py-20">{children}</div>
 
-          <div>
-            <h2 className={`max-w-[20ch] font-display text-[clamp(1.9rem,5vw,3.4rem)] uppercase leading-[0.98] ${ink}`}>
-              {title}
-            </h2>
-            <div className="mt-10">{children}</div>
-          </div>
+        <div className={`flex items-end justify-between gap-6 border-t pb-6 pt-4 ${rule}`}>
+          <p className={`text-[0.58rem] uppercase tracking-[0.28em] ${inkSoft}`}>{foot}</p>
+          <img src={mark} alt="" aria-hidden="true" className="h-5 w-auto opacity-40" />
         </div>
       </div>
     </section>
   );
 }
-
-const ringLight =
-  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-obsidian focus-visible:ring-offset-bone';
-const ringDark =
-  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-taupe focus-visible:ring-offset-obsidian';
 
 export default function Foundations({ theme, setTheme }) {
   const year = new Date().getFullYear();
@@ -245,18 +272,20 @@ export default function Foundations({ theme, setTheme }) {
   }, []);
 
   const logo = isDark ? '/logoWhite.png' : '/logoBlack.png';
+  const mark = isDark ? '/favicon-dark.png' : '/favicon.png';
   const ground = isDark ? 'bg-obsidian text-bone' : 'bg-bone text-obsidian';
   const ink = isDark ? 'text-bone' : 'text-obsidian';
   const inkSoft = isDark ? 'text-taupe' : 'text-stone';
   const inkBody = isDark ? 'text-taupe' : 'text-charcoal';
-  const rule = isDark ? 'border-bone/25' : 'border-obsidian/20';
-  const ruleFaint = isDark ? 'border-bone/12' : 'border-obsidian/10';
+  const rule = isDark ? 'border-bone/20' : 'border-obsidian/15';
 
   const btnBase =
     'inline-flex items-center justify-center gap-3 whitespace-nowrap px-8 py-4 text-[0.72rem] uppercase tracking-[0.2em] transition-colors';
-  const btnOutline = `${btnBase} border ${rule} ${
-    isDark ? 'hover:border-bone hover:bg-bone/10' : 'hover:border-obsidian hover:bg-obsidian/5'
-  } ${focusRing}`;
+
+  // The measure the printed page keeps: one narrow column, indented from the
+  // running head rather than filling the sheet.
+  const measure = 'max-w-[62ch] lg:ml-[14%]';
+  const body = `mt-5 text-[0.95rem] leading-[1.85] first:mt-0 ${inkBody}`;
 
   return (
     <div className={`m1 min-h-screen ${ground}`}>
@@ -289,77 +318,143 @@ export default function Foundations({ theme, setTheme }) {
 
       <main id="manual">
         {/* -----------------------------------------------------------------
-            Title page
+            The cover
             ----------------------------------------------------------------- */}
         <section className="relative isolate overflow-hidden bg-obsidian text-bone">
-          <div className="m1-grain m1-grain-light relative mx-auto max-w-[86rem] px-5 sm:px-8">
-            <div className="flex items-baseline justify-between gap-6 border-b border-bone/25 py-4 text-[0.62rem] uppercase tracking-[0.28em] text-taupe">
-              <span>M1LLION Foundations</span>
-              <span>First edition</span>
+          <div className="m1-grain m1-grain-light relative mx-auto max-w-[86rem] px-5 py-16 sm:px-8 sm:py-24">
+            <p className="text-center text-[0.62rem] uppercase tracking-[0.42em] text-taupe">From one to many</p>
+
+            <div className="mx-auto mt-10 max-w-[46rem]">
+              {SCRIPTURE_TOP.map(([verse, note]) => (
+                <p key={verse} className="mt-4 text-[0.8rem] leading-[1.75] text-taupe first:mt-0">
+                  <span className="text-bone">{verse}</span> {note}
+                </p>
+              ))}
             </div>
 
-            <div className="max-w-[52rem] py-20 sm:py-28">
-              <p className="text-[0.62rem] uppercase tracking-[0.42em] text-taupe">From one to many</p>
+            <p className="mt-12 text-center text-[0.62rem] uppercase tracking-[0.34em] text-taupe">
+              The foundation of M1LLION
+            </p>
 
-              <h1 className="mt-6 font-display text-[clamp(2.4rem,7vw,5rem)] uppercase leading-[0.94]">
-                The foundation
-                <br />
-                of M1LLION
-              </h1>
+            <h1 className="mt-6 text-center font-display text-[clamp(3.5rem,16vw,11rem)] uppercase leading-[0.84] tracking-[-0.02em]">
+              M1LLION
+            </h1>
 
-              <p className="mt-8 max-w-[44ch] font-serif text-[clamp(1.2rem,2.2vw,1.6rem)] font-light italic leading-[1.45] text-taupe">
-                A Kingdom business by M1LLION Fitness.
-              </p>
+            <div className="mx-auto mt-12 max-w-[46rem]">
+              {SCRIPTURE_FOOT.map(([verse, note]) => (
+                <p key={verse} className="mt-4 text-[0.8rem] leading-[1.75] text-taupe first:mt-0">
+                  <span className="text-bone">{verse}</span> {note}
+                </p>
+              ))}
             </div>
+
+            <p className="mt-14 text-center font-serif text-lg italic tracking-[0.1em] text-taupe">
+              A Kingdom business by M1LLION Fitness
+            </p>
+            <p className="mt-3 text-center text-[0.58rem] uppercase tracking-[0.34em] text-taupe">First edition</p>
           </div>
         </section>
 
         {/* -----------------------------------------------------------------
-            What it stands on
+            The leaves
             ----------------------------------------------------------------- */}
-        <Shell rule={rule} ink={ink} inkSoft={inkSoft} rail="The scriptures" title="What this is built on.">
-          <dl>
-            {SCRIPTURE.map((item) => (
-              <div key={item.ref} className={`border-t py-8 first:border-t-0 first:pt-0 ${ruleFaint}`}>
-                <dt
-                  className={`max-w-[56ch] font-serif text-[clamp(1.1rem,2vw,1.4rem)] font-light italic leading-[1.5] ${ink}`}
-                >
-                  “{item.quote}”
-                </dt>
-                <dd className={`mt-3 text-[0.62rem] uppercase tracking-[0.28em] ${inkSoft}`}>{item.ref}</dd>
-                <dd className={`mt-4 max-w-[62ch] text-[0.95rem] leading-[1.8] ${inkBody}`}>{item.body}</dd>
-              </div>
-            ))}
-          </dl>
-        </Shell>
-
-        {/* -----------------------------------------------------------------
-            The manual
-            ----------------------------------------------------------------- */}
-        {SECTIONS.map((block, index) => {
-          if (block.kind === 'statement') {
+        {LEAVES.map((leaf) => {
+          if (leaf.kind === 'divider') {
             return (
-              <section key={block.text} className="relative isolate overflow-hidden bg-charcoal text-bone">
-                <div className="m1-grain m1-grain-light relative mx-auto max-w-[86rem] px-5 py-16 sm:px-8 sm:py-24">
-                  <p className="max-w-[24ch] font-display text-[clamp(1.8rem,5vw,3.25rem)] uppercase leading-[1.05]">
-                    {block.text}
+              <section key={leaf.folio} className="relative isolate overflow-hidden bg-obsidian text-bone">
+                {/* Full bleed, as it is on the printed leaf. The plates are tall and
+                    the band is wide, so the band is given a height that scales with
+                    its own width — a steady 4:3 — and each plate carries the focal
+                    point that keeps its subject in frame. */}
+                <div className="absolute inset-0 z-0">
+                  <img
+                    src={leaf.plate}
+                    alt=""
+                    aria-hidden="true"
+                    style={{ objectPosition: leaf.focal }}
+                    className="h-full w-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-obsidian/70" />
+                  <div className="absolute inset-0 bg-gradient-to-b from-obsidian/65 via-obsidian/25 to-obsidian/90" />
+                </div>
+
+                <div className="m1-grain m1-grain-light relative z-10 mx-auto flex min-h-[max(28rem,88svh)] max-w-[86rem] flex-col px-5 sm:min-h-[max(34rem,88svh,75vw)] sm:px-8">
+                  <p className="pt-5 text-[0.58rem] uppercase tracking-[0.28em] text-taupe">
+                    M1LLION Foundations / {leaf.folio}
                   </p>
-                  {block.sub ? (
-                    <p className="mt-6 max-w-[58ch] text-[0.95rem] leading-[1.8] text-taupe">{block.sub}</p>
-                  ) : null}
+
+                  <div className="flex flex-1 flex-col justify-end py-16 sm:py-20">
+                    <h2 className="max-w-[20ch] font-display text-[clamp(1.9rem,5.5vw,3.6rem)] uppercase leading-[0.98]">
+                      {leaf.title}
+                    </h2>
+                    {leaf.sub ? (
+                      <p className="mt-4 max-w-[44ch] font-serif text-lg font-light italic text-taupe">{leaf.sub}</p>
+                    ) : null}
+                    <span aria-hidden="true" className="mt-6 block h-px w-16 bg-bone/50" />
+                  </div>
+
+                  <div className="flex items-end justify-between gap-6 border-t border-bone/20 pb-6 pt-4">
+                    <p className="text-[0.58rem] uppercase tracking-[0.28em] text-taupe">{leaf.foot}</p>
+                    <img src="/favicon-dark.png" alt="" aria-hidden="true" className="h-5 w-auto opacity-40" />
+                  </div>
                 </div>
               </section>
             );
           }
 
-          if (block.kind === 'prayer') {
+          if (leaf.kind === 'statement') {
             return (
-              <Shell key="prayer" rule={rule} ink={ink} inkSoft={inkSoft} n="06" rail="Prayer" title="For everyone who encounters M1LLION.">
-                <blockquote className={`border-l pl-6 sm:pl-8 ${rule}`}>
-                  <p className={`font-serif text-[clamp(1.15rem,2vw,1.45rem)] font-light italic ${ink}`}>
+              <Leaf
+                key={leaf.folio}
+                folio={leaf.folio}
+                foot={leaf.foot}
+                dark
+                mark="/favicon-dark.png"
+                rule="border-bone/20"
+                inkSoft="text-taupe"
+                className="overflow-hidden bg-charcoal text-bone"
+              >
+                <div className="flex h-full flex-col justify-center">
+                  <h2 className="max-w-[22ch] font-display text-[clamp(1.7rem,4.6vw,3rem)] uppercase leading-[1.04]">
+                    {leaf.title}
+                  </h2>
+                  {leaf.sub ? (
+                    <p className="mt-5 max-w-[58ch] text-[0.95rem] leading-[1.8] text-taupe">{leaf.sub}</p>
+                  ) : null}
+                </div>
+              </Leaf>
+            );
+          }
+
+          if (leaf.kind === 'quiet') {
+            return (
+              <Leaf
+                key={leaf.folio}
+                folio={leaf.folio}
+                foot={leaf.foot}
+                mark="/favicon.png"
+                rule="border-obsidian/20"
+                inkSoft="text-stone"
+                className="overflow-hidden bg-taupe text-obsidian"
+              >
+                <div className="flex h-full flex-col items-center justify-center text-center">
+                  <p className="max-w-[40ch] text-[clamp(1rem,2.1vw,1.3rem)] leading-[1.6]">{leaf.text}</p>
+                  <span aria-hidden="true" className="mt-6 block h-px w-24 bg-obsidian/35" />
+                </div>
+              </Leaf>
+            );
+          }
+
+          if (leaf.kind === 'prayer') {
+            return (
+              <Leaf key={leaf.folio} folio={leaf.folio} foot={leaf.foot} mark={mark} rule={rule} inkSoft={inkSoft}>
+                <div className={measure}>
+                  <p className={`font-serif text-[clamp(1.1rem,2vw,1.4rem)] font-light italic ${ink}`}>
                     Heavenly Father,
                   </p>
-                  <p className={`mt-5 max-w-[62ch] text-[0.95rem] leading-[1.9] ${inkBody}`}>
+                  <span aria-hidden="true" className={`mt-6 block border-t ${rule}`} />
+
+                  <p className={`mt-6 text-[0.95rem] leading-[1.9] ${inkBody}`}>
                     May the Holy Spirit go before me and place this in the hands of whom you have chosen. I pray the
                     Holy Spirit fills every person that encounters this prayer. This is not a random chance but a
                     strategic assignment by your will for them. Give them the ears to hear and open their hearts so
@@ -372,191 +467,204 @@ export default function Foundations({ theme, setTheme }) {
                     I pray that every person who encounters M1LLION, no matter the length of time, leaves with
                     greater hope than before.
                   </p>
-                  <p className={`mt-5 max-w-[62ch] text-[0.95rem] leading-[1.9] ${inkBody}`}>
+                  <p className={`mt-5 text-[0.95rem] leading-[1.9] ${inkBody}`}>
                     I pray, Lord, that all who come to You walk in Your truth, love and boldness. I thank you, Lord
                     and I praise You in advance for all the lives that will be encountered and transformed through
                     our mission. Many are called, but few are chosen. May they choose to accept the invitation.
                   </p>
-                  <p className={`mt-7 text-[0.72rem] uppercase tracking-[0.3em] ${inkSoft}`}>Amen. Amen. Amen.</p>
-                </blockquote>
-              </Shell>
+
+                  <span aria-hidden="true" className={`mt-8 block border-t ${rule}`} />
+                  <p className={`mt-6 font-serif text-lg italic ${ink}`}>Amen. Amen. Amen!</p>
+                </div>
+              </Leaf>
             );
           }
 
-          if (block.kind === 'hopes') {
+          if (leaf.kind === 'hopes') {
             return (
-              <Shell key="hopes" rule={rule} ink={ink} inkSoft={inkSoft} n="07" rail="The impact" title="What we hope people say.">
-                <p className={`max-w-[62ch] text-[0.95rem] leading-[1.8] ${inkBody}`}>
-                  Years from now, when someone speaks about M1LLION, we hope they remember more than a program, a
-                  service, or an experience. We hope they say…
-                </p>
+              <Leaf key={leaf.folio} folio={leaf.folio} foot={leaf.foot} mark={mark} rule={rule} inkSoft={inkSoft}>
+                <div className={measure}>
+                  <p className={body}>
+                    Years from now, when someone speaks about M1LLION, we hope they remember more than a program, a
+                    service, or an experience.
+                  </p>
+                  <p className={body}>We hope they say…</p>
 
-                <ul className="mt-8">
-                  {HOPES.map((line) => (
-                    <li
-                      key={line}
-                      className={`border-t py-4 font-serif text-[clamp(1.05rem,1.8vw,1.35rem)] font-light italic leading-[1.5] first:border-t-0 first:pt-0 ${ruleFaint} ${ink}`}
-                    >
-                      “{line}”
-                    </li>
-                  ))}
-                </ul>
+                  <ul className="mt-7">
+                    {HOPES.map((line) => (
+                      <li
+                        key={line}
+                        className={`mt-4 font-serif text-[clamp(1.02rem,1.8vw,1.28rem)] font-light italic leading-[1.5] first:mt-0 ${ink}`}
+                      >
+                        “{line}”
+                      </li>
+                    ))}
+                  </ul>
 
-                <p className={`mt-8 max-w-[62ch] text-[0.95rem] leading-[1.8] ${inkBody}`}>
-                  Because the greatest impact isn’t measured by how long someone needs us. It’s measured by what
-                  continues long after they’ve left.
-                </p>
+                  <p className={`mt-8 text-[0.95rem] leading-[1.85] ${inkBody}`}>
+                    Because the greatest impact isn’t measured by how long someone needs us. It’s measured by what
+                    continues long after they’ve left.
+                  </p>
 
-                <p className={`mt-6 text-[0.72rem] uppercase tracking-[0.2em] ${inkSoft}`}>From one to many.</p>
-              </Shell>
+                  <p className={`mt-7 font-display text-[clamp(1.1rem,2.2vw,1.5rem)] uppercase leading-[1] ${ink}`}>
+                    From one to many.
+                  </p>
+                </div>
+              </Leaf>
             );
           }
 
-          if (block.kind === 'journey') {
+          if (leaf.kind === 'journey') {
             return (
-              <Shell key="journey" rule={rule} ink={ink} inkSoft={inkSoft} n="09" rail="The journey" title="The journey of M1LLION.">
-                <p className={`max-w-[62ch] text-[0.95rem] leading-[1.8] ${inkBody}`}>
-                  Every person begins from a different place. Some are searching for direction. Some are rebuilding
-                  after difficult seasons. Some are pursuing new goals. Others have already achieved tremendous
-                  success and recognize there is still more to learn, develop, and contribute.
-                </p>
+              <Leaf key={leaf.folio} folio={leaf.folio} foot={leaf.foot} mark={mark} rule={rule} inkSoft={inkSoft}>
+                <div className={measure}>
+                  <ol>
+                    {JOURNEY.map(([n, term, detail], index) => (
+                      <li key={n} className={index % 2 === 0 ? '' : 'mt-8'}>
+                        {index === 2 ? <span aria-hidden="true" className={`mb-8 block border-t ${rule}`} /> : null}
+                        <p className={`text-[0.8rem] tracking-[0.1em] ${inkSoft}`}>{n}</p>
+                        <h3 className={`mt-1 font-display text-[clamp(1.2rem,2.4vw,1.7rem)] uppercase leading-[1] ${ink}`}>
+                          {term}
+                        </h3>
+                        <p className={`mt-1.5 text-[0.95rem] leading-[1.7] ${inkBody}`}>{detail}</p>
+                      </li>
+                    ))}
+                  </ol>
 
-                <p className={`mt-5 max-w-[62ch] text-[0.95rem] leading-[1.8] ${inkBody}`}>
-                  Different starting points. One continuous opportunity for growth. At M1LLION, we believe
-                  transformation is a lifelong process shaped by four foundational principles.
-                </p>
+                  <span aria-hidden="true" className={`mt-10 block border-t ${rule}`} />
 
-                <ol className="mt-10 grid gap-px sm:grid-cols-2">
-                  {JOURNEY.map(([n, term, detail]) => (
-                    <li key={n} className={`border p-6 sm:p-8 ${rule}`}>
-                      <p className={`font-serif text-2xl italic leading-none ${inkSoft}`}>{n}</p>
-                      <h3 className={`mt-4 font-display text-[clamp(1.3rem,2.6vw,1.9rem)] uppercase leading-[1] ${ink}`}>
-                        {term}
-                      </h3>
-                      <p className={`mt-2 text-[0.95rem] leading-[1.7] ${inkBody}`}>{detail}</p>
-                    </li>
-                  ))}
-                </ol>
-
-                <p className={`mt-8 text-[0.62rem] uppercase tracking-[0.28em] ${inkSoft}`}>
-                  Identity → Stewardship → Becoming → Impact
-                </p>
-
-                <p className={`mt-4 max-w-[62ch] text-[0.95rem] leading-[1.8] ${inkBody}`}>
-                  This is not a formula for perfection. It is a framework for growth — a way to return to what
-                  matters, revisit what God has entrusted to you, and continue becoming more faithful with it over
-                  time. Because what begins in one life was never meant to end there.
-                </p>
-              </Shell>
+                  <p className={`mt-6 text-[0.78rem] uppercase tracking-[0.12em] ${ink}`}>
+                    Identity → Stewardship → Becoming → Impact
+                  </p>
+                  <p className={`mt-3 font-serif text-base italic ${inkSoft}`}>
+                    A framework to revisit throughout life, not a destination to complete once.
+                  </p>
+                </div>
+              </Leaf>
             );
           }
 
           return (
-            <Shell key={block.n || index} rule={rule} ink={ink} inkSoft={inkSoft} n={block.n} rail={block.rail} title={block.title}>
-              {block.lead ? (
-                <p
-                  className={`max-w-[52ch] font-serif text-[clamp(1.15rem,2vw,1.5rem)] font-light leading-[1.55] ${ink}`}
-                >
-                  {block.lead}
-                </p>
-              ) : null}
+            <Leaf key={leaf.folio} folio={leaf.folio} foot={leaf.foot} mark={mark} rule={rule} inkSoft={inkSoft}>
+              <div className={measure}>
+                {leaf.title ? (
+                  <>
+                    <h2 className={`font-display text-[clamp(1.7rem,4.4vw,2.9rem)] uppercase leading-[1] ${ink}`}>
+                      {leaf.title}
+                    </h2>
+                    <span aria-hidden="true" className={`mb-8 mt-6 block border-t ${rule}`} />
+                  </>
+                ) : null}
 
-              <div className={block.lead ? 'mt-7' : undefined}>
-                {block.paras.map((para) => (
-                  <p key={para} className={`mt-5 max-w-[62ch] text-[0.95rem] leading-[1.85] first:mt-0 ${inkBody}`}>
-                    {para}
+                {leaf.paras ? leaf.paras.map((para) => <p key={para} className={body}>{para}</p>) : null}
+
+                {leaf.aside ? (
+                  <p
+                    className={`mt-7 font-serif text-[clamp(1.1rem,2vw,1.4rem)] font-light italic leading-[1.5] ${ink}`}
+                  >
+                    {leaf.aside}
                   </p>
-                ))}
+                ) : null}
+
+                {leaf.more ? leaf.more.map((para) => <p key={para} className={`mt-5 text-[0.95rem] leading-[1.85] ${inkBody}`}>{para}</p>) : null}
+
+                {leaf.close ? (
+                  <>
+                    <span aria-hidden="true" className={`mt-8 block border-t ${rule}`} />
+                    <p className={`mt-6 font-serif text-[clamp(1.05rem,1.9vw,1.3rem)] font-light italic ${ink}`}>
+                      {leaf.close}
+                    </p>
+                  </>
+                ) : null}
+
+                {leaf.tail ? leaf.tail.map((para) => <p key={para} className={`mt-5 text-[0.95rem] leading-[1.85] ${inkBody}`}>{para}</p>) : null}
+
+                {leaf.signature ? <p className={`mt-7 text-[0.95rem] ${inkBody}`}>{leaf.signature}</p> : null}
+
+                {leaf.stamp ? (
+                  <p className={`mt-8 font-display text-[clamp(1.1rem,2.2vw,1.5rem)] uppercase leading-[1] ${ink}`}>
+                    {leaf.stamp}
+                  </p>
+                ) : null}
+
+                {leaf.refs ? (
+                  <p className={`mt-2 text-[0.8rem] ${inkSoft}`}>{leaf.refs}</p>
+                ) : null}
+
+                {leaf.link ? (
+                  <a
+                    href={leaf.link.href}
+                    className={`mt-8 inline-flex items-center gap-2 text-[0.8rem] uppercase tracking-[0.12em] underline underline-offset-[6px] transition-colors hover:text-stone ${ink} ${focusRing}`}
+                  >
+                    {leaf.link.label}
+                    <span aria-hidden="true">↗</span>
+                  </a>
+                ) : null}
               </div>
-
-              {block.close ? (
-                <p
-                  className={`mt-8 max-w-[52ch] border-t pt-6 font-serif text-[clamp(1.1rem,2vw,1.4rem)] font-light italic leading-[1.5] ${rule} ${ink}`}
-                >
-                  {block.close}
-                </p>
-              ) : null}
-
-              {block.tail ? (
-                <p className={`mt-5 max-w-[62ch] text-[0.95rem] leading-[1.8] ${inkBody}`}>{block.tail}</p>
-              ) : null}
-
-              {block.signature ? (
-                <p className={`mt-8 font-serif text-lg italic ${inkSoft}`}>{block.signature}</p>
-              ) : null}
-
-              {block.refs ? (
-                <p className={`mt-6 text-[0.62rem] uppercase tracking-[0.28em] ${inkSoft}`}>{block.refs}</p>
-              ) : null}
-
-              {block.link ? (
-                <a href={block.link.href} className={`mt-7 ${btnOutline}`}>
-                  {block.link.label}
-                  <span aria-hidden="true">→</span>
-                </a>
-              ) : null}
-            </Shell>
+            </Leaf>
           );
         })}
 
         {/* -----------------------------------------------------------------
-            Colophon
+            The closing leaf
             ----------------------------------------------------------------- */}
         <section className="relative isolate overflow-hidden bg-obsidian text-bone">
-          <div className="m1-grain m1-grain-light relative mx-auto max-w-[86rem] px-5 py-20 text-center sm:px-8 sm:py-28">
-            <p className="mx-auto max-w-[30ch] font-display text-[clamp(1.6rem,4.5vw,3rem)] uppercase leading-[1.05]">
-              May M1LLION remain faithful to the One who designed it.
+          <div className="absolute inset-0 z-0">
+            <img
+              src="/foundations/closing.jpg"
+              alt=""
+              aria-hidden="true"
+              style={{ objectPosition: '50% 45%' }}
+              className="h-full w-full object-cover"
+            />
+            <div className="absolute inset-0 bg-obsidian/80" />
+          </div>
+
+          <div className="m1-grain m1-grain-light relative z-10 mx-auto flex min-h-[max(28rem,88svh)] max-w-[86rem] flex-col px-5 sm:min-h-[max(34rem,88svh,70vw)] sm:px-8">
+            <p className="pt-5 text-[0.58rem] uppercase tracking-[0.28em] text-taupe">
+              The foundation of M1LLION / {year}
             </p>
 
-            <p className="mx-auto mt-8 max-w-[44ch] font-serif text-xl font-light italic leading-[1.5] text-taupe">
-              And may what begins with one continue to reach many.
-            </p>
+            <div className="flex flex-1 flex-col items-center justify-center py-16 text-center sm:py-24">
+              <h2 className="max-w-[24ch] font-display text-[clamp(1.6rem,4.4vw,3rem)] uppercase leading-[1.08]">
+                May M1LLION remain faithful to the One who designed it.
+              </h2>
 
-            <p className="mt-10 text-[0.62rem] uppercase tracking-[0.34em] text-taupe">From one to many.</p>
-            <p className="mt-3 text-[0.62rem] uppercase tracking-[0.28em] text-taupe">
-              The foundation of M1LLION &nbsp;/&nbsp; {year}
-            </p>
+              <p className="mt-7 max-w-[40ch] font-serif text-lg font-light italic leading-[1.5] text-taupe">
+                And may what begins with one continue to reach many.
+              </p>
 
-            <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap sm:gap-4">
-              <a href="/my-story" className={`${btnBase} bg-bone text-obsidian hover:bg-taupe ${ringDark}`}>
-                Read my story
-                <span aria-hidden="true">→</span>
-              </a>
+              <p className="mt-10 font-display text-[clamp(1.2rem,2.6vw,1.8rem)] uppercase leading-[1]">
+                From one to many.
+              </p>
+              <span aria-hidden="true" className="mt-5 block h-px w-24 bg-bone/40" />
 
-              <a
-                href="/#next-step"
-                className={`${btnBase} border border-bone/45 text-bone hover:border-bone hover:bg-bone/10 ${ringDark}`}
-              >
-                Take the next step
-                <span aria-hidden="true">→</span>
-              </a>
+              <p className="mt-6 text-[0.58rem] uppercase tracking-[0.3em] text-taupe">Thank you for reading</p>
+              <p className="mt-2 text-[0.58rem] uppercase tracking-[0.3em] text-taupe">m1llionfitness.com</p>
+
+              <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap sm:gap-4">
+                <a href="/my-story" className={`${btnBase} bg-bone text-obsidian hover:bg-taupe ${ringDark}`}>
+                  Read my story
+                  <span aria-hidden="true">→</span>
+                </a>
+
+                <a
+                  href="/#next-step"
+                  className={`${btnBase} border border-bone/45 text-bone hover:border-bone hover:bg-bone/10 ${ringDark}`}
+                >
+                  Take the next step
+                  <span aria-hidden="true">→</span>
+                </a>
+              </div>
+            </div>
+
+            <div className="flex items-end justify-between gap-6 border-t border-bone/20 pb-6 pt-4">
+              <p className="text-[0.58rem] uppercase tracking-[0.28em] text-taupe">From one to many</p>
+              <img src="/favicon-dark.png" alt="" aria-hidden="true" className="h-5 w-auto opacity-40" />
             </div>
           </div>
         </section>
       </main>
-
-      <footer className={`border-t ${rule}`}>
-        <div className="mx-auto max-w-[86rem] px-5 py-12 sm:px-8">
-          <div
-            className={`flex flex-col gap-4 border-t pt-6 text-[0.68rem] uppercase tracking-[0.18em] sm:flex-row sm:items-center sm:justify-between ${ruleFaint} ${inkSoft}`}
-          >
-            <span>© {year} M1LLION</span>
-            <div className="flex flex-wrap gap-6">
-              <a href="/terms" className={`transition-colors hover:text-stone ${focusRing}`}>
-                Terms
-              </a>
-              <a
-                href="https://www.instagram.com/m1llionfitness/"
-                target="_blank"
-                rel="noreferrer"
-                className={`transition-colors hover:text-stone ${focusRing}`}
-              >
-                Instagram
-              </a>
-            </div>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }
