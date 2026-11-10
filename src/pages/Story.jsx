@@ -397,7 +397,7 @@ export default function Story({ theme, setTheme }) {
             return (
               <section key={block.caption} className="relative isolate">
                 <div className="mx-auto max-w-[86rem] px-5 py-12 sm:px-8 sm:py-16">
-                  <Slot caption={block.caption} ratio="aspect-[16/5]" />
+                  <Slot caption={block.caption} ratio="aspect-[3/2] sm:aspect-[16/5]" />
                 </div>
               </section>
             );
@@ -434,7 +434,7 @@ export default function Story({ theme, setTheme }) {
                       {hasFigure && figureFirst ? (
                         <div className="lg:order-2">
                           <div className="lg:sticky lg:top-28">
-                            <Slot caption={block.caption} ratio="aspect-[4/5]" />
+                            <Slot caption={block.caption} ratio="aspect-[4/3] sm:aspect-[4/5]" />
                           </div>
                         </div>
                       ) : null}
@@ -450,7 +450,7 @@ export default function Story({ theme, setTheme }) {
                       {hasFigure && !figureFirst ? (
                         <div>
                           <div className="lg:sticky lg:top-28">
-                            <Slot caption={block.caption} ratio="aspect-[4/5]" />
+                            <Slot caption={block.caption} ratio="aspect-[4/3] sm:aspect-[4/5]" />
                           </div>
                         </div>
                       ) : null}

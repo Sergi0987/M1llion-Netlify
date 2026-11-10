@@ -304,7 +304,7 @@ export default function Home({ theme, setTheme }) {
             <div className="absolute inset-0 bg-gradient-to-b from-obsidian/55 via-obsidian/30 to-obsidian" />
           </div>
 
-          <div className="m1-grain m1-grain-light relative z-10 mx-auto flex min-h-[max(34rem,88svh)] max-w-[86rem] flex-col justify-end px-5 pb-10 pt-16 sm:px-8 sm:pb-14 sm:pt-24">
+          <div className="m1-grain m1-grain-light relative z-10 mx-auto flex min-h-[max(30rem,78svh)] max-w-[86rem] sm:min-h-[max(34rem,88svh)] flex-col justify-end px-5 pb-10 pt-16 sm:px-8 sm:pb-14 sm:pt-24">
             {/* Registration marks — the plate's own corner furniture, holding the
                 top of the sheet without putting a label above the headline. */}
             <div aria-hidden="true" className="pointer-events-none absolute left-5 top-8 sm:left-8 sm:top-12">
@@ -315,10 +315,10 @@ export default function Home({ theme, setTheme }) {
               <span className="absolute right-0 h-px w-8 bg-bone/45" />
               <span className="absolute right-0 h-8 w-px bg-bone/45" />
             </div>
-            <div className="mx-auto max-w-4xl py-14 text-center sm:py-20">
+            <div className="mx-auto max-w-5xl py-14 text-center sm:py-20">
               <p className="text-[0.62rem] uppercase tracking-[0.42em] text-taupe">M1LLION Fitness</p>
 
-              <h1 className="mt-6 font-display text-[clamp(2.6rem,9vw,6rem)] uppercase leading-[0.92] tracking-[-0.005em]">
+              <h1 className="mt-6 font-display text-[clamp(3.2rem,13vw,8.5rem)] uppercase leading-[0.88] tracking-[-0.015em]">
                 From one
                 <br />
                 to many
@@ -385,7 +385,7 @@ export default function Home({ theme, setTheme }) {
                   onError={() => setStudySrc('/C14.jpeg')}
                   alt="Strength work in progress"
                   loading="lazy"
-                  className="m1-photo h-full w-full object-cover object-top"
+                  className="m1-photo aspect-[4/3] w-full object-cover object-top sm:aspect-auto sm:h-full"
                 />
               </div>
               <figcaption className={`mt-3 font-serif text-sm italic ${inkSoft}`}>
@@ -459,7 +459,7 @@ export default function Home({ theme, setTheme }) {
                     alt={step.alt}
                     loading="lazy"
                     className={`m1-photo w-full object-cover object-center ${
-                      step.wide ? 'aspect-[16/7]' : 'aspect-[4/3]'
+                      step.wide ? 'aspect-[3/2] sm:aspect-[16/7]' : 'aspect-[3/2] sm:aspect-[4/3]'
                     }`}
                   />
                 </div>
@@ -563,7 +563,7 @@ export default function Home({ theme, setTheme }) {
                   src="/headshot.png"
                   alt="Carolina coaching in the gym"
                   loading="lazy"
-                  className="m1-photo aspect-[4/5] w-full object-cover object-center"
+                  className="m1-photo aspect-[4/3] w-full object-cover object-center sm:aspect-[4/5]"
                 />
               </div>
               <figcaption className={`mt-3 font-serif text-sm italic ${inkSoft}`}>
