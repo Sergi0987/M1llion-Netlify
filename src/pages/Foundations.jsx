@@ -240,16 +240,16 @@ const ringLight =
   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-obsidian focus-visible:ring-offset-bone';
 
 // The running head and the foot rule that repeat on every leaf of the edition.
-function Leaf({ folio, foot, dark, mark, rule, inkSoft, className = '', children }) {
+function Leaf({ folio, foot, dark, mark, rule, inkSoft, centred, className = '', children }) {
   return (
     <section className={`relative isolate scroll-mt-16 ${className}`}>
       <div className={`${dark ? 'm1-grain m1-grain-light' : 'm1-grain'} relative mx-auto flex min-h-[32rem] max-w-[86rem] flex-col px-5 sm:px-8`}>
-        <p className={`pt-5 text-[0.58rem] uppercase tracking-[0.28em] ${inkSoft}`}>M1LLION Foundations / {folio}</p>
+        <p className={`pt-5 text-[0.58rem] sm:text-[0.62rem] uppercase tracking-[0.28em] ${inkSoft}`}>M1LLION Foundations / {folio}</p>
 
-        <div className="flex-1 py-14 sm:py-20">{children}</div>
+        <div className={`flex flex-1 flex-col py-14 sm:py-20 ${centred ? 'justify-center' : ''}`}>{children}</div>
 
         <div className={`flex items-end justify-between gap-6 border-t pb-6 pt-4 ${rule}`}>
-          <p className={`text-[0.58rem] uppercase tracking-[0.28em] ${inkSoft}`}>{foot}</p>
+          <p className={`text-[0.58rem] sm:text-[0.62rem] uppercase tracking-[0.28em] ${inkSoft}`}>{foot}</p>
           <img src={mark} alt="" aria-hidden="true" className="h-5 w-auto opacity-40" />
         </div>
       </div>
@@ -285,7 +285,7 @@ export default function Foundations({ theme, setTheme }) {
   // The measure the printed page keeps: one narrow column, indented from the
   // running head rather than filling the sheet.
   const measure = 'max-w-[62ch] lg:ml-[14%]';
-  const body = `mt-5 text-[0.95rem] leading-[1.85] first:mt-0 ${inkBody}`;
+  const body = `mt-5 text-[0.95rem] sm:text-[1.08rem] leading-[1.85] first:mt-0 ${inkBody}`;
 
   return (
     <div className={`m1 min-h-screen ${ground}`}>
@@ -326,7 +326,7 @@ export default function Foundations({ theme, setTheme }) {
 
             <div className="mx-auto mt-10 max-w-[46rem]">
               {SCRIPTURE_TOP.map(([verse, note]) => (
-                <p key={verse} className="mt-4 text-[0.8rem] leading-[1.75] text-taupe first:mt-0">
+                <p key={verse} className="mt-4 text-[0.8rem] sm:text-[0.9rem] leading-[1.75] text-taupe first:mt-0">
                   <span className="text-bone">{verse}</span> {note}
                 </p>
               ))}
@@ -342,7 +342,7 @@ export default function Foundations({ theme, setTheme }) {
 
             <div className="mx-auto mt-12 max-w-[46rem]">
               {SCRIPTURE_FOOT.map(([verse, note]) => (
-                <p key={verse} className="mt-4 text-[0.8rem] leading-[1.75] text-taupe first:mt-0">
+                <p key={verse} className="mt-4 text-[0.8rem] sm:text-[0.9rem] leading-[1.75] text-taupe first:mt-0">
                   <span className="text-bone">{verse}</span> {note}
                 </p>
               ))}
@@ -351,7 +351,7 @@ export default function Foundations({ theme, setTheme }) {
             <p className="mt-14 text-center font-serif text-lg italic tracking-[0.1em] text-taupe">
               A Kingdom business by M1LLION Fitness
             </p>
-            <p className="mt-3 text-center text-[0.58rem] uppercase tracking-[0.34em] text-taupe">First edition</p>
+            <p className="mt-3 text-center text-[0.58rem] sm:text-[0.62rem] uppercase tracking-[0.34em] text-taupe">First edition</p>
           </div>
         </section>
 
@@ -379,11 +379,11 @@ export default function Foundations({ theme, setTheme }) {
                 </div>
 
                 <div className="m1-grain m1-grain-light relative z-10 mx-auto flex min-h-[max(28rem,88svh)] max-w-[86rem] flex-col px-5 sm:min-h-[max(34rem,88svh,75vw)] sm:px-8">
-                  <p className="pt-5 text-[0.58rem] uppercase tracking-[0.28em] text-taupe">
+                  <p className="pt-5 text-[0.58rem] sm:text-[0.62rem] uppercase tracking-[0.28em] text-taupe">
                     M1LLION Foundations / {leaf.folio}
                   </p>
 
-                  <div className="flex flex-1 flex-col justify-end py-16 sm:py-20">
+                  <div className="flex flex-1 flex-col justify-center py-16 sm:py-20">
                     <h2 className="max-w-[20ch] font-display text-[clamp(1.9rem,5.5vw,3.6rem)] uppercase leading-[0.98]">
                       {leaf.title}
                     </h2>
@@ -394,7 +394,7 @@ export default function Foundations({ theme, setTheme }) {
                   </div>
 
                   <div className="flex items-end justify-between gap-6 border-t border-bone/20 pb-6 pt-4">
-                    <p className="text-[0.58rem] uppercase tracking-[0.28em] text-taupe">{leaf.foot}</p>
+                    <p className="text-[0.58rem] sm:text-[0.62rem] uppercase tracking-[0.28em] text-taupe">{leaf.foot}</p>
                     <img src="/favicon-dark.png" alt="" aria-hidden="true" className="h-5 w-auto opacity-40" />
                   </div>
                 </div>
@@ -412,14 +412,15 @@ export default function Foundations({ theme, setTheme }) {
                 mark="/favicon-dark.png"
                 rule="border-bone/20"
                 inkSoft="text-taupe"
+                centred
                 className="overflow-hidden bg-charcoal text-bone"
               >
-                <div className="flex h-full flex-col justify-center">
+                <div>
                   <h2 className="max-w-[22ch] font-display text-[clamp(1.7rem,4.6vw,3rem)] uppercase leading-[1.04]">
                     {leaf.title}
                   </h2>
                   {leaf.sub ? (
-                    <p className="mt-5 max-w-[58ch] text-[0.95rem] leading-[1.8] text-taupe">{leaf.sub}</p>
+                    <p className="mt-5 max-w-[58ch] text-[0.95rem] sm:text-[1.08rem] leading-[1.8] text-taupe">{leaf.sub}</p>
                   ) : null}
                 </div>
               </Leaf>
@@ -435,10 +436,11 @@ export default function Foundations({ theme, setTheme }) {
                 mark="/favicon.png"
                 rule="border-obsidian/20"
                 inkSoft="text-stone"
+                centred
                 className="overflow-hidden bg-taupe text-obsidian"
               >
-                <div className="flex h-full flex-col items-center justify-center text-center">
-                  <p className="max-w-[40ch] text-[clamp(1rem,2.1vw,1.3rem)] leading-[1.6]">{leaf.text}</p>
+                <div className="flex flex-col items-center text-center">
+                  <p className="max-w-[40ch] text-[clamp(1rem,2.4vw,1.45rem)] leading-[1.6]">{leaf.text}</p>
                   <span aria-hidden="true" className="mt-6 block h-px w-24 bg-obsidian/35" />
                 </div>
               </Leaf>
@@ -449,12 +451,12 @@ export default function Foundations({ theme, setTheme }) {
             return (
               <Leaf key={leaf.folio} folio={leaf.folio} foot={leaf.foot} mark={mark} rule={rule} inkSoft={inkSoft}>
                 <div className={measure}>
-                  <p className={`font-serif text-[clamp(1.1rem,2vw,1.4rem)] font-light italic ${ink}`}>
+                  <p className={`font-serif text-[clamp(1.1rem,2.2vw,1.55rem)] font-light italic ${ink}`}>
                     Heavenly Father,
                   </p>
                   <span aria-hidden="true" className={`mt-6 block border-t ${rule}`} />
 
-                  <p className={`mt-6 text-[0.95rem] leading-[1.9] ${inkBody}`}>
+                  <p className={`mt-6 text-[0.95rem] sm:text-[1.08rem] leading-[1.9] ${inkBody}`}>
                     May the Holy Spirit go before me and place this in the hands of whom you have chosen. I pray the
                     Holy Spirit fills every person that encounters this prayer. This is not a random chance but a
                     strategic assignment by your will for them. Give them the ears to hear and open their hearts so
@@ -467,7 +469,7 @@ export default function Foundations({ theme, setTheme }) {
                     I pray that every person who encounters M1LLION, no matter the length of time, leaves with
                     greater hope than before.
                   </p>
-                  <p className={`mt-5 text-[0.95rem] leading-[1.9] ${inkBody}`}>
+                  <p className={`mt-5 text-[0.95rem] sm:text-[1.08rem] leading-[1.9] ${inkBody}`}>
                     I pray, Lord, that all who come to You walk in Your truth, love and boldness. I thank you, Lord
                     and I praise You in advance for all the lives that will be encountered and transformed through
                     our mission. Many are called, but few are chosen. May they choose to accept the invitation.
@@ -494,14 +496,14 @@ export default function Foundations({ theme, setTheme }) {
                     {HOPES.map((line) => (
                       <li
                         key={line}
-                        className={`mt-4 font-serif text-[clamp(1.02rem,1.8vw,1.28rem)] font-light italic leading-[1.5] first:mt-0 ${ink}`}
+                        className={`mt-4 font-serif text-[clamp(1.02rem,2vw,1.42rem)] font-light italic leading-[1.5] first:mt-0 ${ink}`}
                       >
                         “{line}”
                       </li>
                     ))}
                   </ul>
 
-                  <p className={`mt-8 text-[0.95rem] leading-[1.85] ${inkBody}`}>
+                  <p className={`mt-8 text-[0.95rem] sm:text-[1.08rem] leading-[1.85] ${inkBody}`}>
                     Because the greatest impact isn’t measured by how long someone needs us. It’s measured by what
                     continues long after they’ve left.
                   </p>
@@ -522,18 +524,18 @@ export default function Foundations({ theme, setTheme }) {
                     {JOURNEY.map(([n, term, detail], index) => (
                       <li key={n} className={index % 2 === 0 ? '' : 'mt-8'}>
                         {index === 2 ? <span aria-hidden="true" className={`mb-8 block border-t ${rule}`} /> : null}
-                        <p className={`text-[0.8rem] tracking-[0.1em] ${inkSoft}`}>{n}</p>
+                        <p className={`text-[0.8rem] sm:text-[0.9rem] tracking-[0.1em] ${inkSoft}`}>{n}</p>
                         <h3 className={`mt-1 font-display text-[clamp(1.2rem,2.4vw,1.7rem)] uppercase leading-[1] ${ink}`}>
                           {term}
                         </h3>
-                        <p className={`mt-1.5 text-[0.95rem] leading-[1.7] ${inkBody}`}>{detail}</p>
+                        <p className={`mt-1.5 text-[0.95rem] sm:text-[1.08rem] leading-[1.7] ${inkBody}`}>{detail}</p>
                       </li>
                     ))}
                   </ol>
 
                   <span aria-hidden="true" className={`mt-10 block border-t ${rule}`} />
 
-                  <p className={`mt-6 text-[0.78rem] uppercase tracking-[0.12em] ${ink}`}>
+                  <p className={`mt-6 text-[0.78rem] sm:text-[0.86rem] uppercase tracking-[0.12em] ${ink}`}>
                     Identity → Stewardship → Becoming → Impact
                   </p>
                   <p className={`mt-3 font-serif text-base italic ${inkSoft}`}>
@@ -560,26 +562,26 @@ export default function Foundations({ theme, setTheme }) {
 
                 {leaf.aside ? (
                   <p
-                    className={`mt-7 font-serif text-[clamp(1.1rem,2vw,1.4rem)] font-light italic leading-[1.5] ${ink}`}
+                    className={`mt-7 font-serif text-[clamp(1.1rem,2.2vw,1.55rem)] font-light italic leading-[1.5] ${ink}`}
                   >
                     {leaf.aside}
                   </p>
                 ) : null}
 
-                {leaf.more ? leaf.more.map((para) => <p key={para} className={`mt-5 text-[0.95rem] leading-[1.85] ${inkBody}`}>{para}</p>) : null}
+                {leaf.more ? leaf.more.map((para) => <p key={para} className={`mt-5 text-[0.95rem] sm:text-[1.08rem] leading-[1.85] ${inkBody}`}>{para}</p>) : null}
 
                 {leaf.close ? (
                   <>
                     <span aria-hidden="true" className={`mt-8 block border-t ${rule}`} />
-                    <p className={`mt-6 font-serif text-[clamp(1.05rem,1.9vw,1.3rem)] font-light italic ${ink}`}>
+                    <p className={`mt-6 font-serif text-[clamp(1.05rem,2.1vw,1.45rem)] font-light italic ${ink}`}>
                       {leaf.close}
                     </p>
                   </>
                 ) : null}
 
-                {leaf.tail ? leaf.tail.map((para) => <p key={para} className={`mt-5 text-[0.95rem] leading-[1.85] ${inkBody}`}>{para}</p>) : null}
+                {leaf.tail ? leaf.tail.map((para) => <p key={para} className={`mt-5 text-[0.95rem] sm:text-[1.08rem] leading-[1.85] ${inkBody}`}>{para}</p>) : null}
 
-                {leaf.signature ? <p className={`mt-7 text-[0.95rem] ${inkBody}`}>{leaf.signature}</p> : null}
+                {leaf.signature ? <p className={`mt-7 text-[0.95rem] sm:text-[1.08rem] ${inkBody}`}>{leaf.signature}</p> : null}
 
                 {leaf.stamp ? (
                   <p className={`mt-8 font-display text-[clamp(1.1rem,2.2vw,1.5rem)] uppercase leading-[1] ${ink}`}>
@@ -588,13 +590,13 @@ export default function Foundations({ theme, setTheme }) {
                 ) : null}
 
                 {leaf.refs ? (
-                  <p className={`mt-2 text-[0.8rem] ${inkSoft}`}>{leaf.refs}</p>
+                  <p className={`mt-2 text-[0.8rem] sm:text-[0.9rem] ${inkSoft}`}>{leaf.refs}</p>
                 ) : null}
 
                 {leaf.link ? (
                   <a
                     href={leaf.link.href}
-                    className={`mt-8 inline-flex items-center gap-2 text-[0.8rem] uppercase tracking-[0.12em] underline underline-offset-[6px] transition-colors hover:text-stone ${ink} ${focusRing}`}
+                    className={`mt-8 inline-flex items-center gap-2 text-[0.8rem] sm:text-[0.9rem] uppercase tracking-[0.12em] underline underline-offset-[6px] transition-colors hover:text-stone ${ink} ${focusRing}`}
                   >
                     {leaf.link.label}
                     <span aria-hidden="true">↗</span>
@@ -621,7 +623,7 @@ export default function Foundations({ theme, setTheme }) {
           </div>
 
           <div className="m1-grain m1-grain-light relative z-10 mx-auto flex min-h-[max(28rem,88svh)] max-w-[86rem] flex-col px-5 sm:min-h-[max(34rem,88svh,70vw)] sm:px-8">
-            <p className="pt-5 text-[0.58rem] uppercase tracking-[0.28em] text-taupe">
+            <p className="pt-5 text-[0.58rem] sm:text-[0.62rem] uppercase tracking-[0.28em] text-taupe">
               The foundation of M1LLION / {year}
             </p>
 
@@ -639,8 +641,8 @@ export default function Foundations({ theme, setTheme }) {
               </p>
               <span aria-hidden="true" className="mt-5 block h-px w-24 bg-bone/40" />
 
-              <p className="mt-6 text-[0.58rem] uppercase tracking-[0.3em] text-taupe">Thank you for reading</p>
-              <p className="mt-2 text-[0.58rem] uppercase tracking-[0.3em] text-taupe">m1llionfitness.com</p>
+              <p className="mt-6 text-[0.58rem] sm:text-[0.62rem] uppercase tracking-[0.3em] text-taupe">Thank you for reading</p>
+              <p className="mt-2 text-[0.58rem] sm:text-[0.62rem] uppercase tracking-[0.3em] text-taupe">m1llionfitness.com</p>
 
               <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap sm:gap-4">
                 <a href="/my-story" className={`${btnBase} bg-bone text-obsidian hover:bg-taupe ${ringDark}`}>
@@ -659,7 +661,7 @@ export default function Foundations({ theme, setTheme }) {
             </div>
 
             <div className="flex items-end justify-between gap-6 border-t border-bone/20 pb-6 pt-4">
-              <p className="text-[0.58rem] uppercase tracking-[0.28em] text-taupe">From one to many</p>
+              <p className="text-[0.58rem] sm:text-[0.62rem] uppercase tracking-[0.28em] text-taupe">From one to many</p>
               <img src="/favicon-dark.png" alt="" aria-hidden="true" className="h-5 w-auto opacity-40" />
             </div>
           </div>
